@@ -1,0 +1,31 @@
+---
+title: "PCA"
+subtitle: "Seminario de Estadística"
+author: autores
+institute: UNAL - Departamento de estadística
+date: today
+date-format: "dddd, D [de] MMMM, YYYY"
+lang: es
+embed-resources: false
+format: revealjs
+fig-responsive: true
+echo: True
+output: True
+warning: false
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r}
+require(easyCODA)
+```
+
+```{r}
+HAPPY <- read.csv("Datos/world-happiness-report-2021.csv", check.names=FALSE)
+```
+
+## Contenido
+
+
+
+##
