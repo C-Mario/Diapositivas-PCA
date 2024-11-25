@@ -20,7 +20,7 @@ fig-responsive: true
 echo: false
 warning: false
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 smaller: true
 ---
 
@@ -63,8 +63,7 @@ HAPPY |> count(`Regional indicator`) |> gt() |> gt_theme_538()
 El PCA busca una combinación lineal de los indicadores que tengan la máxima varianza. Es decir, los combina de manera que reflejen la mayor variación entre los $149$ países.
 
 $$\textrm{PC}1 = 0.538 (Social) + 0.563 (Life) + 0.498 (Choices)
-− 0.004 (Generosity) - 0.381 (Corruption)$$
-$$\textrm{PC}2 = − 0.266 (Social) − 0.243 (Life) + 0.258 (Choices)
+− 0.004 (Generosity) - 0.381 (Corruption)$$ $$\textrm{PC}2 = − 0.266 (Social) − 0.243 (Life) + 0.258 (Choices)
 + 0.799 (Generosity) − 0.407 (Corruption)$$
 
 ```{r}
@@ -135,6 +134,7 @@ happy.region <- happy.region[,-1]
 ```
 
 ## 
+
 ```{r}
 ### Regional colours and 50%-reduced alpha colours
 ### colorspace or RColorBrewer colours
@@ -169,6 +169,7 @@ text(happy.region, labels=rownames(happy.region), cex=0.9, font=2, col=region.co
 ![](a.png){fig-align="center"}
 
 ## 
+
 ```{r}
 png(file = "b.png", width = 28, units="cm", height = 20, res=1000)
 ### Figure 1B
@@ -207,7 +208,6 @@ legend("topleft", legend=rownames(happy.region), col=region.col, pch=region.pch,
 
 ![](b.png){fig-align="center"}
 
-
 ## Experimentación
 
 ##### [Estandarización de variables]{style="color:green;"}
@@ -222,6 +222,7 @@ flowchart LR
 ```
 
 ## 
+
 ##### [Reducción de la dimensionalidad]{style="color:green;"}
 
 ```{mermaid}
@@ -230,56 +231,86 @@ flowchart LR
   A --> C[singular value decomposition SVD]
 ```
 
-- La [EVD]{style="color:red;"} se aplica sobre la matriz de covarianza de los datos
+-   La [EVD]{style="color:red;"} se aplica sobre la matriz de covarianza de los datos
 
-- La [SVD]{style="color:red;"} se aplica a la matrix de datos opcionalmente estandarizada, pero al menos centrada.
+-   La [SVD]{style="color:red;"} se aplica a la matrix de datos opcionalmente estandarizada, pero al menos centrada.
 
-##
+## 
+
 ###### [Descomposición en valores propios (EVD)]{style="color:red;"}
 
 ![](Imágenes/img2.png){fig-align="center"}
 
 calcula valores propios, denotados habitualmente por $\lambda_1,\lambda_2,\cdots$ valores positivos en orden descendente, así como vectores propios correspondientes a cada valor propio, denotados por $v_1,v_2,\cdots$
 
-##
+## 
+
 ###### [Descomposición en valores singulares (SVD)]{style="color:red;"}
 
-![](Imágenes/img3.png){fig-align="center"}
-Da como resultado un conjunto de valores singulares positivos y dos conjuntos de vectores, los vectores singulares izquierdo y derecho, para las filas y columnas respectivamente. Los valores singulares son proporcionales a las raíces cuadradas de los valores propios de la matriz de covarianza y los vectores singulares izquierdo y derecho conducen a la visualización conjunta de casos y variables en forma de un diagrama de dispersión bidimensional.
+![](Imágenes/img3.png){fig-align="center"} Da como resultado un conjunto de valores singulares positivos y dos conjuntos de vectores, los vectores singulares izquierdo y derecho, para las filas y columnas respectivamente. Los valores singulares son proporcionales a las raíces cuadradas de los valores propios de la matriz de covarianza y los vectores singulares izquierdo y derecho conducen a la visualización conjunta de casos y variables en forma de un diagrama de dispersión bidimensional.
 
 ## 
 
 ###### La descomposición SVD y las coordenadas del biplot PCA
 
-Dada una matrix $X_{n\times p}$  ya centrada o posiblemente estandarizada. La SVD descompone a $X$ en tres matrices:
+Dada una matrix $X_{n\times p}$ ya centrada o posiblemente estandarizada. La SVD descompone a $X$ en tres matrices:
 
-$$X=UDV^{t}$$
-donde,
+$$X=UDV^{t}$$ donde,
 
-- $D$ es la matriz diagonal de los valores singulares (positivos) $\alpha_1,alpha_2, \cdots$ en orden descendente
-- $U$ y $V$ son las matrices de los vectores singulares izquierdo y derecho (con columnas $u_1,u_2,…$y $v_1,v_2, \cdots$) y son ortonormales: $U^{t}U = V^{t}V = I$
- 
-Escrita como una suma de productos de los vectores individuales,  SVD de X queda:
+-   $D$ es la matriz diagonal de los valores singulares (positivos) $\alpha_1,alpha_2, \cdots$ en orden descendente
+-   $U$ y $V$ son las matrices de los vectores singulares izquierdo y derecho (con columnas $u_1,u_2,…$y $v_1,v_2, \cdots$) y son ortonormales: $U^{t}U = V^{t}V = I$
 
-$$\sum_{k=1}^{m}\alpha_ku_kf_k^{t}$$
-Donde $m$ es el rango de $X$. Dado que la suma de los cuadrados de cada matriz de rango 1 $u_kv_k^{t}$ es igual a 1 y los valores singulares están en orden descendente, esto sugiere que tomar los primeros términos de la suma dará una aproximación a $X$. 
+Escrita como una suma de productos de los vectores individuales, SVD de X queda:
 
-##
+$$\sum_{k=1}^{m}\alpha_ku_kf_k^{t}$$ Donde $m$ es el rango de $X$. Dado que la suma de los cuadrados de cada matriz de rango 1 $u_kv_k^{t}$ es igual a 1 y los valores singulares están en orden descendente, esto sugiere que tomar los primeros términos de la suma dará una aproximación a $X$.
+
+## 
+
 Para el biplot, las coordenadas de la fila PCA (principal) en $r$ dimensiones están en las primeras $r$ columnas de $UD$, y las coordenadas de la columna (estándar) en las primeras $r$ columnas de $V$. Los cuadrados de los valores singulares, expresados en relación con su suma, dan los porcentajes de varianza explicada.
 
 ![](Imágenes/img4.png){fig-align="center"}
 
 ## Resultados
+#### Dimensionalidad de la solución de un PCA
+
+$\textbf{Pregunta de interés:}$ Qué tanta varianza de los datos es explicada por las consecutivas dimensiones de la solución?
+
+-   PCA clasifica la variación de los datos en las características principales de los datos en las dimensiones principales y lo que se considera ruido aleatorio, en las dimensiones menores.
+
+-   La secuencia de porcentajes de varianza explicada sugiere cuantas dimensiones NO ALEATORIAS hay.
+
+## Gráfico de sedimentación (scree plot)
+
+```{r}
+png(file = "c.png", width = 20, units="cm", height = 15, res=1000)
+scree <- data.frame(dim = c("dim1","dim2","dim3","dim4","dim5"), happy.perc = happy.perc)
+ggplot(scree, aes(dim, happy.perc, group=1)) +
+geom_bar(stat="identity", fill = "deepskyblue", color = "black", width = 0.7) + 
+geom_line(color = "black", linetype = 1, linewidth = 0.5) +
+geom_point(shape = 19, color = "black", size = 1) +
+geom_text(label = paste(round(happy.perc,2),"%"), vjust = -0.4, hjust = 0.5) + ylab("% de varianza explicada") + xlab("Dimensión")
+```
+![](c.png){fig-align="center"}
+## Otras formas
+
+## 
+La solución de un PCA no tiene por qué ser siempre de dos dimensiones.
+
+La solución puede ser de una sola dimensión, o más de dos.
+
+- El primer caso puede ser visualizado en dos dimensiones usando las dos primeras componentes, pero la segunda componente posiblemente representará una variación alaetoria.
+- Si la solción es tridimensional, se pueden usar gráficos 3D o gráficos 2Dpara cada par de dimensiones separadamente. Esto último también es válido cuando la solución tiene cuatro dimensiones o más.
+
 ## Aplicaciones
+
 ## Reproducibilidad y depósito de datos
 
 ![](Imágenes/img5.png){fig-align="center"}
 
 ## Limitaciones y optimizaciones
+
 ## Perspectivas
+
 ## Conclusiones finales
 
-Se ha mostrado cómo este método simple y versátil puede extraer la información esencial de conjuntos de datos multivariados complejo.
-( otras que se puedan ocurrir)
-
-
+Se ha mostrado cómo este método simple y versátil puede extraer la información esencial de conjuntos de datos multivariados complejo. ( otras que se puedan ocurrir)

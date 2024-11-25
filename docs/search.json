@@ -67,7 +67,21 @@
     "href": "index.html#resultados",
     "title": "Principal Component Analysis",
     "section": "Resultados",
-    "text": "Resultados"
+    "text": "Resultados\nDimensionalidad de la solución de un PCA\n\\(\\textbf{Pregunta de interés:}\\) Qué tanta varianza de los datos es explicada por las consecutivas dimensiones de la solución?\n\nPCA clasifica la variación de los datos en las características principales de los datos en las dimensiones principales y lo que se considera ruido aleatorio, en las dimensiones menores.\nLa secuencia de porcentajes de varianza explicada sugiere cuantas dimensiones NO ALEATORIAS hay."
+  },
+  {
+    "objectID": "index.html#gráfico-de-sedimentación-scree-plot",
+    "href": "index.html#gráfico-de-sedimentación-scree-plot",
+    "title": "Principal Component Analysis",
+    "section": "Gráfico de sedimentación (scree plot)",
+    "text": "Gráfico de sedimentación (scree plot)\n ## Otras formas"
+  },
+  {
+    "objectID": "index.html#section-8",
+    "href": "index.html#section-8",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "La solución de un PCA no tiene por qué ser siempre de dos dimensiones.\nLa solución puede ser de una sola dimensión, o más de dos.\n\nEl primer caso puede ser visualizado en dos dimensiones usando las dos primeras componentes, pero la segunda componente posiblemente representará una variación alaetoria.\nSi la solción es tridimensional, se pueden usar gráficos 3D o gráficos 2Dpara cada par de dimensiones separadamente. Esto último también es válido cuando la solución tiene cuatro dimensiones o más."
   },
   {
     "objectID": "index.html#aplicaciones",
