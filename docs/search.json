@@ -2,8 +2,106 @@
   {
     "objectID": "index.html#contenido",
     "href": "index.html#contenido",
-    "title": "PCA",
+    "title": "Principal Component Analysis",
     "section": "Contenido",
-    "text": "Contenido"
+    "text": "Contenido\n\n\nIntroducción\nExperimentación\nResultados\nAplicaciones\nReproducibilidad y depósito de datos\nLimitaciones y optimizaciones\nPerspectivas\nConclusiones finales"
+  },
+  {
+    "objectID": "index.html#section",
+    "href": "index.html#section",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Principal components are a few linear combinations of the original variables that maximally explain the variance of all the variables"
+  },
+  {
+    "objectID": "index.html#introducción",
+    "href": "index.html#introducción",
+    "title": "Principal Component Analysis",
+    "section": "Introducción",
+    "text": "Introducción\nEjemplo introductorio: Informe mundial de felicidad.\n\n\n\n\n\n\n  \n    \n      Regional indicator\n      n\n    \n  \n  \n    Central and Eastern Europe\n17\n    Commonwealth of Independent States\n12\n    East Asia\n6\n    Latin America and Caribbean\n20\n    Middle East and North Africa\n17\n    North America and ANZ\n4\n    South Asia\n7\n    Southeast Asia\n9\n    Sub-Saharan Africa\n36\n    Western Europe\n21\n  \n  \n  \n\n\n\n\nEl PCA busca una combinación lineal de los indicadores que tengan la máxima varianza. Es decir, los combina de manera que reflejen la mayor variación entre los \\(149\\) países.\n\\[\\textrm{PC}1 = 0.538 (Social) + 0.563 (Life) + 0.498 (Choices)\n− 0.004 (Generosity) - 0.381 (Corruption)\\] \\[\\textrm{PC}2 = − 0.266 (Social) − 0.243 (Life) + 0.258 (Choices)\n+ 0.799 (Generosity) − 0.407 (Corruption)\\]\n\n\n[1] 47.0 24.5 14.1  9.6  4.9"
+  },
+  {
+    "objectID": "index.html#experimentación",
+    "href": "index.html#experimentación",
+    "title": "Principal Component Analysis",
+    "section": "Experimentación",
+    "text": "Experimentación\nEstandarización de variables\n\n\n\n\n\nflowchart LR\n  A(Estandarizar\\n las variables) --&gt; B(El PCA tiene como objetivo explicar las variaciones de las variables,\\n por lo que es esencial que ciertas variables no contribuyan excesivamente\\n a esa variación por razones ajenas a la pregunta de investigación.)\n  B --&gt; C[En situaciones donde hay variables en diferentes\\n escalas es posible centrar los datos en la media y dividir\\n sobre la desviación estándar.]\n  B --&gt; D[Si los datos son de escala positiva se transforman logarítmicamente,\\n esto ya es una forma de estandarización de las variables para tener\\n escalas aditivas comparables que reflejen las diferencias multiplicativas en las variables]"
+  },
+  {
+    "objectID": "index.html#section-3",
+    "href": "index.html#section-3",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Reducción de la dimensionalidad\n\n\n\n\nflowchart LR\n  A(Dos caminos) --&gt; B[Eigenvalue decomposition EVD]\n  A --&gt; C[singular value decomposition SVD]\n\n\n\n\n\n\nLa EVD se aplica sobre la matriz de covarianza de los datos\nLa SVD se aplica a la matrix de datos opcionalmente estandarizada, pero al menos centrada."
+  },
+  {
+    "objectID": "index.html#section-4",
+    "href": "index.html#section-4",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Descomposición en valores propios (EVD)\n\ncalcula valores propios, denotados habitualmente por \\(\\lambda_1,\\lambda_2,\\cdots\\) valores positivos en orden descendente, así como vectores propios correspondientes a cada valor propio, denotados por \\(v_1,v_2,\\cdots\\)"
+  },
+  {
+    "objectID": "index.html#section-5",
+    "href": "index.html#section-5",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Descomposición en valores singulares (SVD)\n Da como resultado un conjunto de valores singulares positivos y dos conjuntos de vectores, los vectores singulares izquierdo y derecho, para las filas y columnas respectivamente. Los valores singulares son proporcionales a las raíces cuadradas de los valores propios de la matriz de covarianza y los vectores singulares izquierdo y derecho conducen a la visualización conjunta de casos y variables en forma de un diagrama de dispersión bidimensional."
+  },
+  {
+    "objectID": "index.html#section-6",
+    "href": "index.html#section-6",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "La descomposición SVD y las coordenadas del biplot PCA\nDada una matrix \\(X_{n\\times p}\\) ya centrada o posiblemente estandarizada. La SVD descompone a \\(X\\) en tres matrices:\n\\[X=UDV^{t}\\] donde,\n\n\\(D\\) es la matriz diagonal de los valores singulares (positivos) \\(\\alpha_1,alpha_2, \\cdots\\) en orden descendente\n\\(U\\) y \\(V\\) son las matrices de los vectores singulares izquierdo y derecho (con columnas \\(u_1,u_2,…\\)y \\(v_1,v_2, \\cdots\\)) y son ortonormales: \\(U^{t}U = V^{t}V = I\\)\n\nEscrita como una suma de productos de los vectores individuales, SVD de X queda:\n\\[\\sum_{k=1}^{m}\\alpha_ku_kf_k^{t}\\] Donde \\(m\\) es el rango de \\(X\\). Dado que la suma de los cuadrados de cada matriz de rango 1 \\(u_kv_k^{t}\\) es igual a 1 y los valores singulares están en orden descendente, esto sugiere que tomar los primeros términos de la suma dará una aproximación a \\(X\\)."
+  },
+  {
+    "objectID": "index.html#section-7",
+    "href": "index.html#section-7",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Para el biplot, las coordenadas de la fila PCA (principal) en \\(r\\) dimensiones están en las primeras \\(r\\) columnas de \\(UD\\), y las coordenadas de la columna (estándar) en las primeras \\(r\\) columnas de \\(V\\). Los cuadrados de los valores singulares, expresados en relación con su suma, dan los porcentajes de varianza explicada."
+  },
+  {
+    "objectID": "index.html#resultados",
+    "href": "index.html#resultados",
+    "title": "Principal Component Analysis",
+    "section": "Resultados",
+    "text": "Resultados"
+  },
+  {
+    "objectID": "index.html#aplicaciones",
+    "href": "index.html#aplicaciones",
+    "title": "Principal Component Analysis",
+    "section": "Aplicaciones",
+    "text": "Aplicaciones"
+  },
+  {
+    "objectID": "index.html#reproducibilidad-y-depósito-de-datos",
+    "href": "index.html#reproducibilidad-y-depósito-de-datos",
+    "title": "Principal Component Analysis",
+    "section": "Reproducibilidad y depósito de datos",
+    "text": "Reproducibilidad y depósito de datos"
+  },
+  {
+    "objectID": "index.html#limitaciones-y-optimizaciones",
+    "href": "index.html#limitaciones-y-optimizaciones",
+    "title": "Principal Component Analysis",
+    "section": "Limitaciones y optimizaciones",
+    "text": "Limitaciones y optimizaciones"
+  },
+  {
+    "objectID": "index.html#perspectivas",
+    "href": "index.html#perspectivas",
+    "title": "Principal Component Analysis",
+    "section": "Perspectivas",
+    "text": "Perspectivas"
+  },
+  {
+    "objectID": "index.html#conclusiones-finales",
+    "href": "index.html#conclusiones-finales",
+    "title": "Principal Component Analysis",
+    "section": "Conclusiones finales",
+    "text": "Conclusiones finales\nSe ha mostrado cómo este método simple y versátil puede extraer la información esencial de conjuntos de datos multivariados complejo. ( otras que se puedan ocurrir)\n\n\n\nAnálisis de componentes principales PCA"
   }
 ]

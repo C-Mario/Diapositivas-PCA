@@ -1,31 +1,285 @@
 ---
-title: "PCA"
-subtitle: "Seminario de Estadística"
-author: autores
+title: "Principal Component Analysis"
+# subtitle: "Seminario de Estadística"
+author: "Michael Greenacre -- Patrick J. F. Groenen -- Trevor Hastie -- Alfonso Iodice d’Enza4 -- Angelos Markos -- Elena Tuzhilina \n \n Nicolás -- David -- Mario"
 institute: UNAL - Departamento de estadística
 date: today
-date-format: "dddd, D [de] MMMM, YYYY"
+date-format: "dddd, D [de] MMMM [de] YYYY"
 lang: es
 embed-resources: false
-format: revealjs
+format:
+  revealjs: 
+    mermaid: 
+      theme: default
+    footer: Análisis de componentes principales PCA
+    logo: logo2.png
+    smaller: true
+    scrollable: true
+    theme: [simple, custom.scss]
 fig-responsive: true
-echo: True
-output: True
+echo: false
 warning: false
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
+smaller: true
 ---
+
+## Contenido
+
+::: incremental
+1.  Introducción
+2.  Experimentación
+3.  Resultados
+4.  Aplicaciones
+5.  Reproducibilidad y depósito de datos
+6.  Limitaciones y optimizaciones
+7.  Perspectivas
+8.  Conclusiones finales
+:::
+
+## 
+
+Principal components are a few linear combinations of the original variables that maximally explain the variance of all the variables
+
+## Introducción
 
 ```{r}
 require(easyCODA)
+library(gt)
+library(gtExtras)
+library(tidyverse)
 ```
+
+Ejemplo introductorio: Informe mundial de felicidad.
 
 ```{r}
 HAPPY <- read.csv("Datos/world-happiness-report-2021.csv", check.names=FALSE)
 ```
 
-## Contenido
+```{r}
+HAPPY |> count(`Regional indicator`) |> gt() |> gt_theme_538()
+```
+
+El PCA busca una combinación lineal de los indicadores que tengan la máxima varianza. Es decir, los combina de manera que reflejen la mayor variación entre los $149$ países.
+
+$$\textrm{PC}1 = 0.538 (Social) + 0.563 (Life) + 0.498 (Choices)
+− 0.004 (Generosity) - 0.381 (Corruption)$$
+$$\textrm{PC}2 = − 0.266 (Social) − 0.243 (Life) + 0.258 (Choices)
++ 0.799 (Generosity) − 0.407 (Corruption)$$
+
+```{r}
+### PCA on 5 variables, standardized (PCA function from easyCODA package)
+happy <- HAPPY[,8:12]
+happy.st <- scale(happy)
+rownames(happy.st) <- HAPPY[,1]
+happy.pca <- PCA(happy.st, weight=FALSE)
+```
+
+```{r}
+### Percentages of variance
+round(100*happy.pca$sv^2 / sum(happy.pca$sv^2),1)
+# [1] 47.0 24.5 14.1  9.6  4.9
+```
+
+```{r}
+#| output: false
+### Cumulative variance explained for each variable
+var.expl <- matrix(0,5,2)
+rownames(var.expl) <- colnames(happy)
+colnames(var.expl) <- paste("Dim", 1:2, sep="")
+for(j in 1:5) {
+  foo.lm <- lm(happy.st[,j] ~ happy.pca$rowpcoord[,1])
+  var.expl[j,1] <- cor(predict(foo.lm),happy.st[,j])^2
+  foo.lm <- lm(happy.st[,j] ~ happy.pca$rowpcoord[,1] + happy.pca$rowpcoord[,2])
+  var.expl[j,2] <- cor(predict(foo.lm),happy.st[,j])^2
+}
+round(var.expl,3)
+
+round(colMeans(var.expl),3)
+
+### reverse all coordinates and rescale row standard coordinates to get contribution coordinates
+happy.rpc <- -happy.pca$rowpcoord                           # row principal
+happy.rcc <- -happy.pca$rowcoord * sqrt(happy.pca$rowmass)  # row contribution
+happy.csc <- -happy.pca$colcoord                            # column standard
+### higher than average row contributions
+happy.ctr <- ( happy.rcc[,1]^2 > 1/nrow(happy) ) | ( happy.rcc[,2]^2 > 1/nrow(happy) )
+sum(happy.ctr)
+
+ladder <- HAPPY[,3]
+logGDP <- HAPPY[,7]
+
+### Correlation matrix of all variables
+round(cor(cbind(ladder,logGDP,happy)),3)
+
+round(cor(cbind(ladder, logGDP, happy.rpc[,1:2])), 3)
+
+summary(lm(ladder ~ ., data=happy))
+
+sqrt(0.738)
+
+### Regressions of supplementary variables on PCs to get biplot coordinates
+supp.reg <- matrix(0, 2, 2)
+rownames(supp.reg) <- c("happy","logGDP")
+supp.reg[1,] <- lm(scale(ladder) ~ happy.rpc[,1] + happy.rpc[,2])$coefficients[2:3]
+supp.reg[2,] <- lm(scale(logGDP) ~ happy.rpc[,1] + happy.rpc[,2])$coefficients[2:3]
+summary(lm(scale(ladder) ~ happy.rpc[,1] + happy.rpc[,2]))  # R2 = 0.728, sign. dim1 (p<0.0001)
+summary(lm(scale(logGDP) ~ happy.rpc[,1] + happy.rpc[,2]))  # R2 = 0.756, sign, dim1 and dim2 (p<0.0001)
+
+### Percentages of variance again, saved
+happy.perc <- 100*happy.pca$sv^2/sum(happy.pca$sv^2)
+
+### Average regional points
+happy.region <- aggregate(happy.rpc ~ factor(HAPPY[,2]), FUN=mean)
+rownames(happy.region) <- happy.region[,1]
+happy.region <- happy.region[,-1]
+```
+
+## 
+```{r}
+### Regional colours and 50%-reduced alpha colours
+### colorspace or RColorBrewer colours
+### (RColorBrewer used in Review)
+require(RColorBrewer)
+region.col <- c(brewer.pal(8, "Dark2"),"forestgreen","blue" )
+add.alpha <- function(col, alpha=1){
+  if(missing(col))
+    stop("Please provide a vector of colours.")
+  apply(sapply(col, col2rgb)/255, 2, 
+                     function(x) 
+                       rgb(x[1], x[2], x[3], alpha=alpha))  
+}
+region.col.alpha <- add.alpha(region.col, 0.5)
+region.num <- as.numeric(factor(HAPPY[,2]))
+
+png(file = "a.png", width = 28, units="cm", height = 20, res=1000)
+### Figure 1A
+### Example of pdf() and dev.off() commands for saving figure
+# pdf(file="Fig1A.pdf", width=8.5, height=6, useDingbats=FALSE, family="ArialMT")
+par(mar=c(4.2,4,1,1), mgp=c(2.0,0.7,0), font.lab=2, cex.axis=0.8, las=1)
+plot(happy.rpc, type="n", xlab="PCA dimension 1 (47.0%)", ylab="PCA dimension 22 (24.5%)", main="", asp=1)
+abline(v=0, h=0, lty=2, col="gray")
+text(happy.rpc[!happy.ctr,], labels=happy.pca$rownames[!happy.ctr], cex=0.6, 
+     col=region.col.alpha[region.num][!happy.ctr], font=2)
+text(happy.rpc[happy.ctr,], labels=happy.pca$rownames[happy.ctr], cex=0.6, 
+     col=region.col[region.num][happy.ctr], font=2)
+text(happy.region, labels=rownames(happy.region), cex=0.9, font=2, col=region.col)
+# dev.off()
+```
+
+![](a.png){fig-align="center"}
+
+## 
+```{r}
+png(file = "b.png", width = 28, units="cm", height = 20, res=1000)
+### Figure 1B
+happy.ccc <- happy.csc
+happy.ccc[,2] <- -happy.csc[,2]
+happy.region[,2] <- -happy.region[,2]
+supp.reg[,2] <- -supp.reg[,2]
+happy.rpc[,2] <- -happy.rpc[,2]
+# happy.ccc[,1] <- -happy.ccc[,1] 
+col <- c("blue","red")
+region.pch <- 1:10
+region.cex <- c(1,rep(0.8,8),1)
+shortnames <- c("Social", "Life", "Choices", "Generosity", "Corruption")
+rescale <- 1
+# pdf(file="Fig1Bnew.pdf", width=9.5, height=7.5, useDingbats=FALSE, family="ArialMT")
+par(mar=c(4.2,4,2,2.5), mgp=c(2,0.7,0), font.lab=2, cex.axis=0.8, las=1, mfrow=c(1,1))
+plot(rbind(happy.rpc, rescale*happy.ccc), type="n", xlab="PC1 (47.0%)", ylab="PC2 (24.5%)", main="", asp=1)
+#axis(1)
+#axis(2)
+#axis(3, at = axTicks(3), labels = round(axTicks(3)/rescale, 
+#                                        2), col = "black", col.ticks = col[2], col.axis = col[2])
+#axis(4, at = axTicks(4), labels = round(axTicks(4)/rescale, 
+#                                        2), col = "black", col.ticks = col[2], col.axis = col[2])
+abline(v=0, h=0, lty=2, col="gray")
+arrows(0,0,0.95*rescale*happy.ccc[,1],0.95*rescale*happy.ccc[,2], col="pink", angle=10, length=0.15, lwd=2)
+arrows(0,0,0.95*supp.reg[,1],0.95*supp.reg[,2], col="grey", angle=10, length=0.15, lwd=2)
+points(happy.rpc, pch=region.pch[region.num], cex=region.cex[region.num], 
+       col=region.col[region.num], font=2)
+text(happy.region, labels=rownames(happy.region), cex=0.9, font=2, col=region.col)
+text(rescale*happy.ccc, labels=shortnames, col=col[2], font=4, cex=0.8)
+text(1.03*supp.reg, labels=rownames(supp.reg), col="black", font=4, cex=0.8)
+legend("topleft", legend=rownames(happy.region), col=region.col, pch=region.pch, bty="n", pt.cex=region.cex,
+       text.col=region.col, text.font=2, cex=0.75)#, title="Regions", title.col="black")
+# dev.off()
+```
+
+![](b.png){fig-align="center"}
 
 
+## Experimentación
+
+##### [Estandarización de variables]{style="color:green;"}
+
+![](Imágenes/img1.png){fig-align="center"}
+
+```{mermaid}
+flowchart LR
+  A(Estandarizar\n las variables) --> B(El PCA tiene como objetivo explicar las variaciones de las variables,\n por lo que es esencial que ciertas variables no contribuyan excesivamente\n a esa variación por razones ajenas a la pregunta de investigación.)
+  B --> C[En situaciones donde hay variables en diferentes\n escalas es posible centrar los datos en la media y dividir\n sobre la desviación estándar.]
+  B --> D[Si los datos son de escala positiva se transforman logarítmicamente,\n esto ya es una forma de estandarización de las variables para tener\n escalas aditivas comparables que reflejen las diferencias multiplicativas en las variables]
+```
+
+## 
+##### [Reducción de la dimensionalidad]{style="color:green;"}
+
+```{mermaid}
+flowchart LR
+  A(Dos caminos) --> B[Eigenvalue decomposition EVD]
+  A --> C[singular value decomposition SVD]
+```
+
+- La [EVD]{style="color:red;"} se aplica sobre la matriz de covarianza de los datos
+
+- La [SVD]{style="color:red;"} se aplica a la matrix de datos opcionalmente estandarizada, pero al menos centrada.
 
 ##
+###### [Descomposición en valores propios (EVD)]{style="color:red;"}
+
+![](Imágenes/img2.png){fig-align="center"}
+
+calcula valores propios, denotados habitualmente por $\lambda_1,\lambda_2,\cdots$ valores positivos en orden descendente, así como vectores propios correspondientes a cada valor propio, denotados por $v_1,v_2,\cdots$
+
+##
+###### [Descomposición en valores singulares (SVD)]{style="color:red;"}
+
+![](Imágenes/img3.png){fig-align="center"}
+Da como resultado un conjunto de valores singulares positivos y dos conjuntos de vectores, los vectores singulares izquierdo y derecho, para las filas y columnas respectivamente. Los valores singulares son proporcionales a las raíces cuadradas de los valores propios de la matriz de covarianza y los vectores singulares izquierdo y derecho conducen a la visualización conjunta de casos y variables en forma de un diagrama de dispersión bidimensional.
+
+## 
+
+###### La descomposición SVD y las coordenadas del biplot PCA
+
+Dada una matrix $X_{n\times p}$  ya centrada o posiblemente estandarizada. La SVD descompone a $X$ en tres matrices:
+
+$$X=UDV^{t}$$
+donde,
+
+- $D$ es la matriz diagonal de los valores singulares (positivos) $\alpha_1,alpha_2, \cdots$ en orden descendente
+- $U$ y $V$ son las matrices de los vectores singulares izquierdo y derecho (con columnas $u_1,u_2,…$y $v_1,v_2, \cdots$) y son ortonormales: $U^{t}U = V^{t}V = I$
+ 
+Escrita como una suma de productos de los vectores individuales,  SVD de X queda:
+
+$$\sum_{k=1}^{m}\alpha_ku_kf_k^{t}$$
+Donde $m$ es el rango de $X$. Dado que la suma de los cuadrados de cada matriz de rango 1 $u_kv_k^{t}$ es igual a 1 y los valores singulares están en orden descendente, esto sugiere que tomar los primeros términos de la suma dará una aproximación a $X$. 
+
+##
+Para el biplot, las coordenadas de la fila PCA (principal) en $r$ dimensiones están en las primeras $r$ columnas de $UD$, y las coordenadas de la columna (estándar) en las primeras $r$ columnas de $V$. Los cuadrados de los valores singulares, expresados en relación con su suma, dan los porcentajes de varianza explicada.
+
+![](Imágenes/img4.png){fig-align="center"}
+
+## Resultados
+## Aplicaciones
+## Reproducibilidad y depósito de datos
+
+![](Imágenes/img5.png){fig-align="center"}
+
+## Limitaciones y optimizaciones
+## Perspectivas
+## Conclusiones finales
+
+Se ha mostrado cómo este método simple y versátil puede extraer la información esencial de conjuntos de datos multivariados complejo.
+( otras que se puedan ocurrir)
+
+
