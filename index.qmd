@@ -9,6 +9,8 @@ lang: es
 embed-resources: false
 format:
   revealjs: 
+    html-math-method: mathjax
+    width: 1500 
     mermaid: 
       theme: default
     footer: Análisis de componentes principales PCA
@@ -48,6 +50,7 @@ require(easyCODA)
 library(gt)
 library(gtExtras)
 library(tidyverse)
+library(tibble)
 ```
 
 Ejemplo introductorio: Informe mundial de felicidad.
@@ -309,10 +312,10 @@ La solución puede ser de una sola dimensión, o más de dos.
 
 :::: {.columns}
 
-::: {.column width="65%"}
+::: {.column width="55%"}
 ![](b.png){fig-align="center"}
 :::
-::: {.column width="35%"}
+::: {.column width="45%"}
 ```{r}
 happy.cor <- cor(cbind(happy.st, happy.rpc))[1:5,6:10] |> as.data.frame() 
 colnames(happy.cor) <- c("PC1", "PC2", "PC3", "PC4", "PC5")
@@ -321,7 +324,7 @@ happy.res[8,] <- happy.res[7,]/5 * 100
 row.names(happy.res)[8] <- "$$\\%$$"
 happy.res <- cbind(happy.res, "SS" = c(round(happy.res[1:6,] |> apply(1, FUN = function(x) sum(x^2)),0),5,100))
 
-happy.res |> round(3) |> gt(rownames_to_stub = T) |> gt_theme_538() |> tab_options(table.font.size = 11) |> data_color(2:3,palette = c("lightskyblue1")) |> 
+happy.res |> round(3) |> gt(rownames_to_stub = T) |> tab_options(table.font.size = 11) |> data_color(2:3,palette = c("lightskyblue1")) |> 
   tab_row_group(
     label = "Valores singulares",
     rows = 1
@@ -339,13 +342,16 @@ happy.res |> round(3) |> gt(rownames_to_stub = T) |> gt_theme_538() |> tab_optio
     style = list(cell_text(weight = "bold", size = "normal")
       ),
     locations = cells_row_groups()
-  ) |> fmt_markdown(columns = everything())
+  ) |> fmt_markdown(columns = everything()) |>   fmt_percent(
+    rows = 8,
+    decimals = 2,
+    sep_mark = ',',
+    scale_values = FALSE
+  ) |> gt_theme_538()
 ```
 :::
 
 ::::
-
-
 
 ## Aplicaciones
 
