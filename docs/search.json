@@ -53,14 +53,7 @@
     "href": "index.html#section-6",
     "title": "Principal Component Analysis",
     "section": "",
-    "text": "La descomposición SVD y las coordenadas del biplot PCA\nDada una matrix \\(X_{n\\times p}\\) ya centrada o posiblemente estandarizada. La SVD descompone a \\(X\\) en tres matrices:\n\\[X=UDV^{t}\\] donde,\n\n\\(D\\) es la matriz diagonal de los valores singulares (positivos) \\(\\alpha_1,alpha_2, \\cdots\\) en orden descendente\n\\(U\\) y \\(V\\) son las matrices de los vectores singulares izquierdo y derecho (con columnas \\(u_1,u_2,…\\)y \\(v_1,v_2, \\cdots\\)) y son ortonormales: \\(U^{t}U = V^{t}V = I\\)\n\nEscrita como una suma de productos de los vectores individuales, SVD de X queda:\n\\[\\sum_{k=1}^{m}\\alpha_ku_kf_k^{t}\\] Donde \\(m\\) es el rango de \\(X\\). Dado que la suma de los cuadrados de cada matriz de rango 1 \\(u_kv_k^{t}\\) es igual a 1 y los valores singulares están en orden descendente, esto sugiere que tomar los primeros términos de la suma dará una aproximación a \\(X\\)."
-  },
-  {
-    "objectID": "index.html#section-7",
-    "href": "index.html#section-7",
-    "title": "Principal Component Analysis",
-    "section": "",
-    "text": "Para el biplot, las coordenadas de la fila PCA (principal) en \\(r\\) dimensiones están en las primeras \\(r\\) columnas de \\(UD\\), y las coordenadas de la columna (estándar) en las primeras \\(r\\) columnas de \\(V\\). Los cuadrados de los valores singulares, expresados en relación con su suma, dan los porcentajes de varianza explicada."
+    "text": "La descomposición SVD y las coordenadas del biplot PCA\nDada una matrix \\(X_{n\\times p}\\) ya centrada o posiblemente estandarizada. La SVD descompone a \\(X\\) en tres matrices:\n\\[X=UDV^{t}\\] donde,\n\n\\(D\\) es la matriz diagonal de los valores singulares (positivos) \\(\\alpha_1,alpha_2, \\cdots\\) en orden descendente\n\\(U\\) y \\(V\\) son las matrices de los vectores singulares izquierdo y derecho (con columnas \\(u_1,u_2,…\\)y \\(v_1,v_2, \\cdots\\)) y son ortonormales: \\(U^{t}U = V^{t}V = I\\)\n\nEscrita como una suma de productos de los vectores individuales, SVD de X queda:\n\\[\\sum_{k=1}^{m}\\alpha_ku_kf_k^{t}\\] Donde \\(m\\) es el rango de \\(X\\). Dado que la suma de los cuadrados de cada matriz de rango 1 \\(u_kv_k^{t}\\) es igual a 1 y los valores singulares están en orden descendente, esto sugiere que tomar los primeros términos de la suma dará una aproximación a \\(X\\).\nPara el biplot, las coordenadas de la fila PCA (principal) en \\(r\\) dimensiones están en las primeras \\(r\\) columnas de \\(UD\\), y las coordenadas de la columna (estándar) en las primeras \\(r\\) columnas de \\(V\\). Los cuadrados de los valores singulares, expresados en relación con su suma, dan los porcentajes de varianza explicada."
   },
   {
     "objectID": "index.html#resultados",
@@ -74,14 +67,28 @@
     "href": "index.html#gráfico-de-sedimentación-scree-plot",
     "title": "Principal Component Analysis",
     "section": "Gráfico de sedimentación (scree plot)",
-    "text": "Gráfico de sedimentación (scree plot)\n ## Otras formas"
+    "text": "Gráfico de sedimentación (scree plot)"
+  },
+  {
+    "objectID": "index.html#otras-formas",
+    "href": "index.html#otras-formas",
+    "title": "Principal Component Analysis",
+    "section": "Otras formas",
+    "text": "Otras formas"
   },
   {
     "objectID": "index.html#section-8",
     "href": "index.html#section-8",
     "title": "Principal Component Analysis",
     "section": "",
-    "text": "La solución de un PCA no tiene por qué ser siempre de dos dimensiones.\nLa solución puede ser de una sola dimensión, o más de dos.\n\nEl primer caso puede ser visualizado en dos dimensiones usando las dos primeras componentes, pero la segunda componente posiblemente representará una variación alaetoria.\nSi la solción es tridimensional, se pueden usar gráficos 3D o gráficos 2Dpara cada par de dimensiones separadamente. Esto último también es válido cuando la solución tiene cuatro dimensiones o más."
+    "text": "La solución de un PCA no tiene por qué ser siempre de dos dimensiones.\nLa solución puede ser de una sola dimensión, o más de dos.\n\nEl primer caso puede ser visualizado en dos dimensiones usando las dos primeras componentes, pero la segunda componente posiblemente representará una variación alaetoria.\nSi la solución es tridimensional, se pueden usar gráficos 3D o gráficos 2Dpara cada par de dimensiones separadamente. Esto último también es válido cuando la solución tiene cuatro dimensiones o más."
+  },
+  {
+    "objectID": "index.html#interpretación-de-un-biplot",
+    "href": "index.html#interpretación-de-un-biplot",
+    "title": "Principal Component Analysis",
+    "section": "Interpretación de un biplot",
+    "text": "Interpretación de un biplot\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n      \n      PC1\n      PC2\n      PC3\n      PC4\n      PC5\n      SS\n    \n  \n  \n    \n      Valores singulares\n    \n    $$\\textrm{Valores singulares}/\\sqrt{p}$$\n1.527\n1.103\n0.835\n0.689\n0.494\n5\n    \n      Correlaciones entre las componentes principales y las variables originales\n    \n    Social support\n0.825\n-0.295\n0.303\n0.183\n-0.328\n1\n    Healthy life expectancy\n0.862\n-0.269\n0.002\n0.252\n0.347\n1\n    Freedom to make life choices\n0.764\n0.285\n0.178\n-0.549\n0.05\n1\n    Generosity\n-0.007\n0.884\n0.38\n0.268\n0.038\n1\n    Perceptions of corruption\n-0.584\n-0.451\n0.659\n-0.091\n0.114\n1\n    \n      Variabilidad explicada\n    \n    $$\\textrm{SS}$$\n2.348\n1.226\n0.703\n0.478\n0.245\n5\n    \n      \n    \n    $$\\%$$\n46.965\n24.513\n14.05\n9.566\n4.906\n100"
   },
   {
     "objectID": "index.html#aplicaciones",
