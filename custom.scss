@@ -1,0 +1,6 @@
+/*-- scss:rules --*/
+/* Target the first column (row names) in the gt table */
+.gt_table td:first-child,
+.gt_table th:first-child {
+  text-align: left !important;
+}

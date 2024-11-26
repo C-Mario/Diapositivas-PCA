@@ -18,6 +18,7 @@ format:
     smaller: true
     scrollable: true
     theme: simple
+    css: custom.scss
 fig-responsive: true
 echo: false
 warning: false
@@ -312,15 +313,15 @@ La solución puede ser de una sola dimensión, o más de dos.
 
 :::: {.columns}
 
-::: {.column width="30%"}
+::: {.column width="55%"}
 ![](b.png){fig-align="center"}
 :::
-::: {.column width="70%"}
+::: {.column width="45%"}
 ```{r}
 happy.cor <- cor(cbind(happy.st, happy.rpc))[1:5,6:10] |> as.data.frame() 
 row.names(happy.cor) <- c("$$\\textrm{Social}$$","$$\\textrm{Life}$$","$$\\textrm{Choises}$$","$$\\textrm{Generosity}$$","$$\\textrm{Corruption}$$")
 colnames(happy.cor) <- c("PC1", "PC2", "PC3", "PC4", "PC5")
-happy.res <- rbind("$$\\textrm{Valores singulares}/\\sqrt{p}$$" = happy.pca$sv*sqrt(5), happy.cor,
+happy.res <- rbind("$$\\textrm{Valores singulares}\\times p$$" = happy.pca$sv*sqrt(5), happy.cor,
                    "$$R^2 $$" = happy.cor |> apply(2, FUN = function(x) x^2), "$$\\textrm{SS}$$" = happy.cor |> apply(2, FUN = function(x) sum(x^2)))
 happy.res[13,] <- happy.res[12,]/5 * 100
 row.names(happy.res)[13] <- "$$\\%$$"
@@ -356,20 +357,20 @@ happy.res |> round(3) |> gt(rownames_to_stub = T) |> data_color(2:3,palette = c(
     sep_mark = ',',
     scale_values = FALSE
   ) |>
-  gt_theme_538() |> 
-      tab_style(
-    style = list(
-      cell_text(align = "left")
-    ),
-    locations = cells_stub(rows = TRUE)
-  ) |>
-  tab_options(table.font.size = 10)
+  sub_missing(
+  missing_text = "---"
+) |> 
+  tab_options(table.font.size = 12)
 ```
 :::
 
 ::::
 
 ## 
+```{r}
+
+```
+
 
 ## Aplicaciones
 
@@ -384,3 +385,4 @@ happy.res |> round(3) |> gt(rownames_to_stub = T) |> data_color(2:3,palette = c(
 ## Conclusiones finales
 
 Se ha mostrado cómo este método simple y versátil puede extraer la información esencial de conjuntos de datos multivariados complejo. ( otras que se puedan ocurrir)
+
