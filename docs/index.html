@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="custom.scss">
@@ -347,6 +412,19 @@ Nicolás – David – Mario
 
   <p class="date">martes, 26 de noviembre de 2024</p>
 </section>
+<section class="slide level2">
+
+<style>
+.reducir-tamano {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;  /* Ajusta el tamaño de la fuente según sea necesario */
+}
+</style>
+</section>
 <section id="contenido" class="slide level2">
 <h2>Contenido</h2>
 <div>
@@ -372,27 +450,27 @@ Nicolás – David – Mario
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="meiuibdqak" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="dbewtrmqwt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cairo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#meiuibdqak table {
+#dbewtrmqwt table {
   font-family: Cairo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#meiuibdqak thead, #meiuibdqak tbody, #meiuibdqak tfoot, #meiuibdqak tr, #meiuibdqak td, #meiuibdqak th {
+#dbewtrmqwt thead, #dbewtrmqwt tbody, #dbewtrmqwt tfoot, #dbewtrmqwt tr, #dbewtrmqwt td, #dbewtrmqwt th {
   border-style: none;
 }
 
-#meiuibdqak p {
+#dbewtrmqwt p {
   margin: 0;
   padding: 0;
 }
 
-#meiuibdqak .gt_table {
+#dbewtrmqwt .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -418,12 +496,12 @@ Nicolás – David – Mario
   border-left-color: #D3D3D3;
 }
 
-#meiuibdqak .gt_caption {
+#dbewtrmqwt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#meiuibdqak .gt_title {
+#dbewtrmqwt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -435,7 +513,7 @@ Nicolás – David – Mario
   border-bottom-width: 0;
 }
 
-#meiuibdqak .gt_subtitle {
+#dbewtrmqwt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -447,7 +525,7 @@ Nicolás – David – Mario
   border-top-width: 0;
 }
 
-#meiuibdqak .gt_heading {
+#dbewtrmqwt .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -459,13 +537,13 @@ Nicolás – David – Mario
   border-right-color: #D3D3D3;
 }
 
-#meiuibdqak .gt_bottom_border {
+#dbewtrmqwt .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#meiuibdqak .gt_col_headings {
+#dbewtrmqwt .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -480,7 +558,7 @@ Nicolás – David – Mario
   border-right-color: #D3D3D3;
 }
 
-#meiuibdqak .gt_col_heading {
+#dbewtrmqwt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -500,7 +578,7 @@ Nicolás – David – Mario
   overflow-x: hidden;
 }
 
-#meiuibdqak .gt_column_spanner_outer {
+#dbewtrmqwt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -512,15 +590,15 @@ Nicolás – David – Mario
   padding-right: 4px;
 }
 
-#meiuibdqak .gt_column_spanner_outer:first-child {
+#dbewtrmqwt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#meiuibdqak .gt_column_spanner_outer:last-child {
+#dbewtrmqwt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#meiuibdqak .gt_column_spanner {
+#dbewtrmqwt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -532,11 +610,11 @@ Nicolás – David – Mario
   width: 100%;
 }
 
-#meiuibdqak .gt_spanner_row {
+#dbewtrmqwt .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#meiuibdqak .gt_group_heading {
+#dbewtrmqwt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -562,7 +640,7 @@ Nicolás – David – Mario
   text-align: left;
 }
 
-#meiuibdqak .gt_empty_group_heading {
+#dbewtrmqwt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -577,15 +655,15 @@ Nicolás – David – Mario
   vertical-align: middle;
 }
 
-#meiuibdqak .gt_from_md > :first-child {
+#dbewtrmqwt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#meiuibdqak .gt_from_md > :last-child {
+#dbewtrmqwt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#meiuibdqak .gt_row {
+#dbewtrmqwt .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -604,7 +682,7 @@ Nicolás – David – Mario
   overflow-x: hidden;
 }
 
-#meiuibdqak .gt_stub {
+#dbewtrmqwt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -617,7 +695,7 @@ Nicolás – David – Mario
   padding-right: 5px;
 }
 
-#meiuibdqak .gt_stub_row_group {
+#dbewtrmqwt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -631,15 +709,15 @@ Nicolás – David – Mario
   vertical-align: top;
 }
 
-#meiuibdqak .gt_row_group_first td {
+#dbewtrmqwt .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#meiuibdqak .gt_row_group_first th {
+#dbewtrmqwt .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#meiuibdqak .gt_summary_row {
+#dbewtrmqwt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -649,16 +727,16 @@ Nicolás – David – Mario
   padding-right: 5px;
 }
 
-#meiuibdqak .gt_first_summary_row {
+#dbewtrmqwt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#meiuibdqak .gt_first_summary_row.thick {
+#dbewtrmqwt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#meiuibdqak .gt_last_summary_row {
+#dbewtrmqwt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -668,7 +746,7 @@ Nicolás – David – Mario
   border-bottom-color: #D3D3D3;
 }
 
-#meiuibdqak .gt_grand_summary_row {
+#dbewtrmqwt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -678,7 +756,7 @@ Nicolás – David – Mario
   padding-right: 5px;
 }
 
-#meiuibdqak .gt_first_grand_summary_row {
+#dbewtrmqwt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -688,7 +766,7 @@ Nicolás – David – Mario
   border-top-color: #D3D3D3;
 }
 
-#meiuibdqak .gt_last_grand_summary_row_top {
+#dbewtrmqwt .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -698,11 +776,11 @@ Nicolás – David – Mario
   border-bottom-color: #D3D3D3;
 }
 
-#meiuibdqak .gt_striped {
+#dbewtrmqwt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#meiuibdqak .gt_table_body {
+#dbewtrmqwt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -711,7 +789,7 @@ Nicolás – David – Mario
   border-bottom-color: #D3D3D3;
 }
 
-#meiuibdqak .gt_footnotes {
+#dbewtrmqwt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -725,7 +803,7 @@ Nicolás – David – Mario
   border-right-color: #D3D3D3;
 }
 
-#meiuibdqak .gt_footnote {
+#dbewtrmqwt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -734,7 +812,7 @@ Nicolás – David – Mario
   padding-right: 5px;
 }
 
-#meiuibdqak .gt_sourcenotes {
+#dbewtrmqwt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -748,7 +826,7 @@ Nicolás – David – Mario
   border-right-color: #D3D3D3;
 }
 
-#meiuibdqak .gt_sourcenote {
+#dbewtrmqwt .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -756,72 +834,72 @@ Nicolás – David – Mario
   padding-right: 5px;
 }
 
-#meiuibdqak .gt_left {
+#dbewtrmqwt .gt_left {
   text-align: left;
 }
 
-#meiuibdqak .gt_center {
+#dbewtrmqwt .gt_center {
   text-align: center;
 }
 
-#meiuibdqak .gt_right {
+#dbewtrmqwt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#meiuibdqak .gt_font_normal {
+#dbewtrmqwt .gt_font_normal {
   font-weight: normal;
 }
 
-#meiuibdqak .gt_font_bold {
+#dbewtrmqwt .gt_font_bold {
   font-weight: bold;
 }
 
-#meiuibdqak .gt_font_italic {
+#dbewtrmqwt .gt_font_italic {
   font-style: italic;
 }
 
-#meiuibdqak .gt_super {
+#dbewtrmqwt .gt_super {
   font-size: 65%;
 }
 
-#meiuibdqak .gt_footnote_marks {
+#dbewtrmqwt .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#meiuibdqak .gt_asterisk {
+#dbewtrmqwt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#meiuibdqak .gt_indent_1 {
+#dbewtrmqwt .gt_indent_1 {
   text-indent: 5px;
 }
 
-#meiuibdqak .gt_indent_2 {
+#dbewtrmqwt .gt_indent_2 {
   text-indent: 10px;
 }
 
-#meiuibdqak .gt_indent_3 {
+#dbewtrmqwt .gt_indent_3 {
   text-indent: 15px;
 }
 
-#meiuibdqak .gt_indent_4 {
+#dbewtrmqwt .gt_indent_4 {
   text-indent: 20px;
 }
 
-#meiuibdqak .gt_indent_5 {
+#dbewtrmqwt .gt_indent_5 {
   text-indent: 25px;
 }
 
-#meiuibdqak .katex-display {
+#dbewtrmqwt .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#meiuibdqak div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#dbewtrmqwt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
@@ -973,8 +1051,8 @@ tbody tr:last-child {
 <li>Si la solución es tridimensional, se pueden usar gráficos 3D o gráficos 2Dpara cada par de dimensiones separadamente. Esto último también es válido cuando la solución tiene cuatro dimensiones o más.</li>
 </ul>
 </section>
-<section id="interpretación-de-un-biplot" class="slide level2">
-<h2>Interpretación de un biplot</h2>
+<section id="interpretación-del-pca-y-biplot" class="slide level2">
+<h2>Interpretación del PCA y biplot</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
 <div class="quarto-figure quarto-figure-center">
@@ -986,23 +1064,23 @@ tbody tr:last-child {
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="dkpemheoxo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dkpemheoxo table {
+<div id="icwxqvesby" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#icwxqvesby table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dkpemheoxo thead, #dkpemheoxo tbody, #dkpemheoxo tfoot, #dkpemheoxo tr, #dkpemheoxo td, #dkpemheoxo th {
+#icwxqvesby thead, #icwxqvesby tbody, #icwxqvesby tfoot, #icwxqvesby tr, #icwxqvesby td, #icwxqvesby th {
   border-style: none;
 }
 
-#dkpemheoxo p {
+#icwxqvesby p {
   margin: 0;
   padding: 0;
 }
 
-#dkpemheoxo .gt_table {
+#icwxqvesby .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1028,12 +1106,12 @@ tbody tr:last-child {
   border-left-color: #D3D3D3;
 }
 
-#dkpemheoxo .gt_caption {
+#icwxqvesby .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dkpemheoxo .gt_title {
+#icwxqvesby .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1045,7 +1123,7 @@ tbody tr:last-child {
   border-bottom-width: 0;
 }
 
-#dkpemheoxo .gt_subtitle {
+#icwxqvesby .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1057,7 +1135,7 @@ tbody tr:last-child {
   border-top-width: 0;
 }
 
-#dkpemheoxo .gt_heading {
+#icwxqvesby .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1069,13 +1147,13 @@ tbody tr:last-child {
   border-right-color: #D3D3D3;
 }
 
-#dkpemheoxo .gt_bottom_border {
+#icwxqvesby .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dkpemheoxo .gt_col_headings {
+#icwxqvesby .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1090,7 +1168,7 @@ tbody tr:last-child {
   border-right-color: #D3D3D3;
 }
 
-#dkpemheoxo .gt_col_heading {
+#icwxqvesby .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1110,7 +1188,7 @@ tbody tr:last-child {
   overflow-x: hidden;
 }
 
-#dkpemheoxo .gt_column_spanner_outer {
+#icwxqvesby .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1122,15 +1200,15 @@ tbody tr:last-child {
   padding-right: 4px;
 }
 
-#dkpemheoxo .gt_column_spanner_outer:first-child {
+#icwxqvesby .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dkpemheoxo .gt_column_spanner_outer:last-child {
+#icwxqvesby .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dkpemheoxo .gt_column_spanner {
+#icwxqvesby .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1142,11 +1220,11 @@ tbody tr:last-child {
   width: 100%;
 }
 
-#dkpemheoxo .gt_spanner_row {
+#icwxqvesby .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dkpemheoxo .gt_group_heading {
+#icwxqvesby .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1172,7 +1250,7 @@ tbody tr:last-child {
   text-align: left;
 }
 
-#dkpemheoxo .gt_empty_group_heading {
+#icwxqvesby .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1187,15 +1265,15 @@ tbody tr:last-child {
   vertical-align: middle;
 }
 
-#dkpemheoxo .gt_from_md > :first-child {
+#icwxqvesby .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dkpemheoxo .gt_from_md > :last-child {
+#icwxqvesby .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dkpemheoxo .gt_row {
+#icwxqvesby .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1214,7 +1292,7 @@ tbody tr:last-child {
   overflow-x: hidden;
 }
 
-#dkpemheoxo .gt_stub {
+#icwxqvesby .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1227,7 +1305,7 @@ tbody tr:last-child {
   padding-right: 5px;
 }
 
-#dkpemheoxo .gt_stub_row_group {
+#icwxqvesby .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1241,15 +1319,15 @@ tbody tr:last-child {
   vertical-align: top;
 }
 
-#dkpemheoxo .gt_row_group_first td {
+#icwxqvesby .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dkpemheoxo .gt_row_group_first th {
+#icwxqvesby .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dkpemheoxo .gt_summary_row {
+#icwxqvesby .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1259,16 +1337,16 @@ tbody tr:last-child {
   padding-right: 5px;
 }
 
-#dkpemheoxo .gt_first_summary_row {
+#icwxqvesby .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dkpemheoxo .gt_first_summary_row.thick {
+#icwxqvesby .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dkpemheoxo .gt_last_summary_row {
+#icwxqvesby .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1278,7 +1356,7 @@ tbody tr:last-child {
   border-bottom-color: #D3D3D3;
 }
 
-#dkpemheoxo .gt_grand_summary_row {
+#icwxqvesby .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1288,7 +1366,7 @@ tbody tr:last-child {
   padding-right: 5px;
 }
 
-#dkpemheoxo .gt_first_grand_summary_row {
+#icwxqvesby .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1298,7 +1376,7 @@ tbody tr:last-child {
   border-top-color: #D3D3D3;
 }
 
-#dkpemheoxo .gt_last_grand_summary_row_top {
+#icwxqvesby .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1308,11 +1386,11 @@ tbody tr:last-child {
   border-bottom-color: #D3D3D3;
 }
 
-#dkpemheoxo .gt_striped {
+#icwxqvesby .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dkpemheoxo .gt_table_body {
+#icwxqvesby .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1321,7 +1399,7 @@ tbody tr:last-child {
   border-bottom-color: #D3D3D3;
 }
 
-#dkpemheoxo .gt_footnotes {
+#icwxqvesby .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1335,7 +1413,7 @@ tbody tr:last-child {
   border-right-color: #D3D3D3;
 }
 
-#dkpemheoxo .gt_footnote {
+#icwxqvesby .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1344,7 +1422,7 @@ tbody tr:last-child {
   padding-right: 5px;
 }
 
-#dkpemheoxo .gt_sourcenotes {
+#icwxqvesby .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1358,7 +1436,7 @@ tbody tr:last-child {
   border-right-color: #D3D3D3;
 }
 
-#dkpemheoxo .gt_sourcenote {
+#icwxqvesby .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1366,72 +1444,72 @@ tbody tr:last-child {
   padding-right: 5px;
 }
 
-#dkpemheoxo .gt_left {
+#icwxqvesby .gt_left {
   text-align: left;
 }
 
-#dkpemheoxo .gt_center {
+#icwxqvesby .gt_center {
   text-align: center;
 }
 
-#dkpemheoxo .gt_right {
+#icwxqvesby .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dkpemheoxo .gt_font_normal {
+#icwxqvesby .gt_font_normal {
   font-weight: normal;
 }
 
-#dkpemheoxo .gt_font_bold {
+#icwxqvesby .gt_font_bold {
   font-weight: bold;
 }
 
-#dkpemheoxo .gt_font_italic {
+#icwxqvesby .gt_font_italic {
   font-style: italic;
 }
 
-#dkpemheoxo .gt_super {
+#icwxqvesby .gt_super {
   font-size: 65%;
 }
 
-#dkpemheoxo .gt_footnote_marks {
+#icwxqvesby .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dkpemheoxo .gt_asterisk {
+#icwxqvesby .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dkpemheoxo .gt_indent_1 {
+#icwxqvesby .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dkpemheoxo .gt_indent_2 {
+#icwxqvesby .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dkpemheoxo .gt_indent_3 {
+#icwxqvesby .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dkpemheoxo .gt_indent_4 {
+#icwxqvesby .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dkpemheoxo .gt_indent_5 {
+#icwxqvesby .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dkpemheoxo .katex-display {
+#icwxqvesby .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dkpemheoxo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#icwxqvesby div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1451,7 +1529,7 @@ tbody tr:last-child {
     <tr class="gt_group_heading_row">
       <th colspan="7" class="gt_group_heading" style="font-size: normal; font-weight: bold;" scope="colgroup" id="Valores singulares">Valores singulares</th>
     </tr>
-    <tr class="gt_row_group_first"><th id="stub_1_1" scope="row" class="gt_row gt_left gt_stub"><span data-qmd-base64="JCRcdGV4dHJte1ZhbG9yZXMgc2luZ3VsYXJlc31cdGltZXMgcCQk"><span class="gt_from_md">$$\textrm{Valores singulares}\times p$$</span></span></th>
+    <tr class="gt_row_group_first"><th id="stub_1_1" scope="row" class="gt_row gt_left gt_stub"><span data-qmd-base64="JCRcdGV4dHJte1ZhbG9yZXMgc2luZ3VsYXJlc30vXHNxcnQobikkJA=="><span class="gt_from_md">$$\textrm{Valores singulares}/\sqrt(n)$$</span></span></th>
 <td headers="Valores singulares stub_1_1 PC1" class="gt_row gt_right" style="background-color: #B0E2FF; color: #000000;"><span data-qmd-base64="MS41Mjc="><span class="gt_from_md">1.527</span></span></td>
 <td headers="Valores singulares stub_1_1 PC2" class="gt_row gt_right" style="background-color: #B0E2FF; color: #000000;"><span data-qmd-base64="MS4xMDM="><span class="gt_from_md">1.103</span></span></td>
 <td headers="Valores singulares stub_1_1 PC3" class="gt_row gt_right"><span data-qmd-base64="MC44MzU="><span class="gt_from_md">0.835</span></span></td>
@@ -1561,10 +1639,17 @@ tbody tr:last-child {
 </div>
 </div>
 </section>
-<section id="section-9" class="slide level2">
-<h2></h2>
-</section>
 <section id="aplicaciones" class="slide level2">
+<h2>Aplicaciones</h2>
+<h3 id="datos-de-alta-dimensionalidad">Datos de alta dimensionalidad</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.svg" style="width:70.0%;height:70.0%"></p>
+</div>
+</div>
+<!-- ![](e.png){fig-align="center"} -->
+</section>
+<section id="aplicaciones-1" class="slide level2">
 <h2>Aplicaciones</h2>
 </section>
 <section id="reproducibilidad-y-depósito-de-datos" class="slide level2">
@@ -1573,6 +1658,161 @@ tbody tr:last-child {
 <img data-src="Imágenes/img5.png" class="img-fluid r-stretch quarto-figure-center"></section>
 <section id="limitaciones-y-optimizaciones" class="slide level2">
 <h2>Limitaciones y optimizaciones</h2>
+<p>Pueden existir limitaciones prácticas cuando el <strong>PCA</strong> es aplicado. Esto debido al gran tamaño y dimensionalidad del conjunto de datos en cuestión, generando problemas computacionales.</p>
+<p>Ejemplos claros de este problema pueden surgir en aplicaciones tales como:</p>
+<ul>
+<li>Clasificación de imágenes,</li>
+<li>Compresión de imágenes,</li>
+<li>Reconocimiento facial</li>
+<li>Modelamiento de procesos industriales,</li>
+<li>Finanzas cuantitativas,</li>
+<li>Neurociencia,</li>
+<li>Génetica,</li>
+<li>Genómica,</li>
+</ul>
+<p>entre otros.</p>
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<p>Las descomposiciones <strong>EVD</strong> y <strong>SVD</strong> son computacionalmente demandantes cuando las matrices son muy grandes, y además requieren guardar la matriz completa en la memoria.</p>
+<h6 id="soluciones">Soluciones:</h6>
+<ul>
+<li><strong><em>Métodos batch (por lotes):</em></strong> Procesa todos los datos a la vez (offline), adecuado cuando los datos pueden almacenarse en memoria.</li>
+<li><strong><em>Métodos Incrementales (en línea):</em></strong> Actualiza la descomposición con cada nuevo conjunto de datos (online), ideal para flujos de datos en tiempo real o cuando la matriz es demasiado grande para ser almacenada de una sola vez.</li>
+</ul>
+</section>
+<section id="valores-faltantes-usando-svd" class="slide level2">
+<h2>Valores faltantes usando SVD</h2>
+<p>Cuando la matriz de datos es parcialmente observada (hay datos faltantes), existen alternativas para proceder con la aplicación del <strong>PCA</strong>:</p>
+<ul>
+<li>Remover las filas (casos) de la matriz con datos faltantes.</li>
+<li>Reemplazar los valores faltantes de una columna en específico por su respectiva media.</li>
+<li>Reconstrucción de la matriz usando <strong>SVD</strong></li>
+</ul>
+<p>Este último método, asume que <span class="math inline">\(X\)</span> es una matrix con valores faltantes que ha sido centrada y escalada usando los valores observados. La idea es encontrar la matriz <span class="math inline">\(X\)</span> de rango <span class="math inline">\(r\)</span>, denotada <span class="math inline">\(X_r\)</span> que minimice la suma de cuadrados de la matriz original.</p>
+</section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<h4 id="algoritmo-de-imputación-de-datos-mediante-svd">Algoritmo de imputación de datos mediante SVD</h4>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Ejemplo de simulación:</strong> Se simula <span class="math inline">\(10\%\)</span> de datos faltantes en la matriz de datos completa del <em>World Happiness Report</em> la cuál tiene <span class="math inline">\(149 \times 5 = 745\)</span> entradas.</p>
+<div class="cell">
+<details>
+<summary></summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="do">#####################</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>prop <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>nrep <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="do">#####################</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>df <span class="ot">&lt;-</span> HAPPY</span>
+<span id="cb2-7"><a href="#cb2-7"></a>info <span class="ot">&lt;-</span> df[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)] <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="fu">rename</span>(<span class="at">country =</span> <span class="dv">1</span>, <span class="at">region =</span> <span class="dv">2</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>df <span class="ot">&lt;-</span> df[,<span class="fu">c</span>(<span class="dv">8</span><span class="sc">:</span><span class="dv">12</span>)] <span class="sc">%&gt;%</span> </span>
+<span id="cb2-10"><a href="#cb2-10"></a>  <span class="fu">rename</span>(<span class="at">social =</span> <span class="dv">1</span>, <span class="at">life =</span> <span class="dv">2</span>, <span class="at">choice =</span> <span class="dv">3</span>, <span class="at">generosity =</span> <span class="dv">4</span>, <span class="at">corruption =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="fu">mutate</span>(<span class="at">life =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">","</span>,<span class="st">""</span>,life)))</span>
+<span id="cb2-12"><a href="#cb2-12"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df) <span class="sc">*</span> <span class="fu">ncol</span>(df)</span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a>rss <span class="ot">&lt;-</span> <span class="cf">function</span>(X, A){</span>
+<span id="cb2-15"><a href="#cb2-15"></a>  <span class="fu">sum</span>((X <span class="sc">-</span> A)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-16"><a href="#cb2-16"></a>}</span>
+<span id="cb2-17"><a href="#cb2-17"></a></span>
+<span id="cb2-18"><a href="#cb2-18"></a>mPCA <span class="ot">&lt;-</span> <span class="cf">function</span>(X, rank, <span class="at">maxit =</span> <span class="dv">100</span>, <span class="at">thresh =</span> <span class="fl">1e-5</span>){</span>
+<span id="cb2-19"><a href="#cb2-19"></a>  A <span class="ot">&lt;-</span> <span class="fu">outer</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(X)), <span class="fu">colMeans</span>(X, <span class="at">na.rm =</span> T))</span>
+<span id="cb2-20"><a href="#cb2-20"></a>  score0 <span class="ot">&lt;-</span> <span class="fu">rss</span>(X, A)</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  delta <span class="ot">&lt;-</span> <span class="cn">Inf</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>  it <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>  <span class="cf">while</span>(it <span class="sc">&lt;</span> maxit <span class="sc">&amp;</span> delta <span class="sc">&gt;</span> thresh){</span>
+<span id="cb2-24"><a href="#cb2-24"></a>    <span class="co">#impute</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>    Xtilde <span class="ot">&lt;-</span> X</span>
+<span id="cb2-26"><a href="#cb2-26"></a>    Xtilde[<span class="fu">is.na</span>(X)] <span class="ot">&lt;-</span> A[<span class="fu">is.na</span>(X)]</span>
+<span id="cb2-27"><a href="#cb2-27"></a>    <span class="co">#center</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a>    m <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(Xtilde)</span>
+<span id="cb2-29"><a href="#cb2-29"></a>    Xtilde <span class="ot">&lt;-</span> <span class="fu">scale</span>(Xtilde, <span class="at">center =</span> m, <span class="at">scale =</span> F)</span>
+<span id="cb2-30"><a href="#cb2-30"></a>    <span class="co">#lrma</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a>    SVD <span class="ot">&lt;-</span> <span class="fu">svd</span>(Xtilde)</span>
+<span id="cb2-32"><a href="#cb2-32"></a>    A <span class="ot">&lt;-</span> SVD<span class="sc">$</span>u[, <span class="dv">1</span><span class="sc">:</span>rank, drop <span class="ot">=</span> F] <span class="sc">%*%</span> <span class="fu">diag</span>(SVD<span class="sc">$</span>d[<span class="dv">1</span><span class="sc">:</span>rank], rank, rank) <span class="sc">%*%</span> <span class="fu">t</span>(SVD<span class="sc">$</span>v[, <span class="dv">1</span><span class="sc">:</span>rank, <span class="at">drop =</span> F])</span>
+<span id="cb2-33"><a href="#cb2-33"></a>    <span class="co">#unscale</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a>    A <span class="ot">&lt;-</span> <span class="fu">scale</span>(A, <span class="at">center =</span> <span class="sc">-</span>m, <span class="at">scale =</span> F)</span>
+<span id="cb2-35"><a href="#cb2-35"></a>    <span class="co">#loss</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a>    score <span class="ot">&lt;-</span> <span class="fu">rss</span>(X, A)</span>
+<span id="cb2-37"><a href="#cb2-37"></a>    delta <span class="ot">&lt;-</span> <span class="fu">abs</span>((score <span class="sc">-</span> score0)<span class="sc">/</span>score0)</span>
+<span id="cb2-38"><a href="#cb2-38"></a>    <span class="co">#cat("iter", it , "rss", score, "delta", delta, "\n")</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a>    score0 <span class="ot">&lt;-</span> score</span>
+<span id="cb2-40"><a href="#cb2-40"></a>    it <span class="ot">&lt;-</span> it <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a>  }</span>
+<span id="cb2-42"><a href="#cb2-42"></a>  <span class="fu">return</span>(score)</span>
+<span id="cb2-43"><a href="#cb2-43"></a>}</span>
+<span id="cb2-44"><a href="#cb2-44"></a></span>
+<span id="cb2-45"><a href="#cb2-45"></a>mPCAnull <span class="ot">&lt;-</span> <span class="cf">function</span>(X){</span>
+<span id="cb2-46"><a href="#cb2-46"></a>  A <span class="ot">&lt;-</span> <span class="fu">outer</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(X)), <span class="fu">colMeans</span>(X, <span class="at">na.rm =</span> T))</span>
+<span id="cb2-47"><a href="#cb2-47"></a>  score0 <span class="ot">&lt;-</span> <span class="fu">rss</span>(X, A)</span>
+<span id="cb2-48"><a href="#cb2-48"></a>  <span class="fu">return</span>(score0)</span>
+<span id="cb2-49"><a href="#cb2-49"></a>}</span>
+<span id="cb2-50"><a href="#cb2-50"></a></span>
+<span id="cb2-51"><a href="#cb2-51"></a>result <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb2-52"><a href="#cb2-52"></a><span class="cf">for</span>(rep <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nrep){</span>
+<span id="cb2-53"><a href="#cb2-53"></a>  missing <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n<span class="sc">*</span>prop)</span>
+<span id="cb2-54"><a href="#cb2-54"></a>  df_upd <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(df)</span>
+<span id="cb2-55"><a href="#cb2-55"></a>  df_upd[missing] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb2-56"><a href="#cb2-56"></a>  s <span class="ot">&lt;-</span> <span class="fu">apply</span>(df_upd, <span class="dv">2</span>, sd, <span class="at">na.rm =</span> T)</span>
+<span id="cb2-57"><a href="#cb2-57"></a>  df_upd <span class="ot">&lt;-</span> <span class="fu">scale</span>(df_upd, <span class="at">scale =</span> s, <span class="at">center =</span> F) </span>
+<span id="cb2-58"><a href="#cb2-58"></a>  </span>
+<span id="cb2-59"><a href="#cb2-59"></a>  score0 <span class="ot">&lt;-</span> <span class="fu">mPCAnull</span>(df_upd) </span>
+<span id="cb2-60"><a href="#cb2-60"></a>  result <span class="ot">&lt;-</span> <span class="fu">rbind</span>(result, <span class="fu">data.frame</span>(<span class="at">rss =</span> score0, <span class="at">r2 =</span> <span class="dv">0</span>, <span class="at">rank =</span> <span class="dv">0</span>, <span class="at">rep =</span> rep))</span>
+<span id="cb2-61"><a href="#cb2-61"></a>  <span class="cf">for</span>(rank <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
+<span id="cb2-62"><a href="#cb2-62"></a>    score <span class="ot">&lt;-</span> <span class="fu">mPCA</span>(df_upd, rank)</span>
+<span id="cb2-63"><a href="#cb2-63"></a>    result <span class="ot">&lt;-</span> <span class="fu">rbind</span>(result, <span class="fu">data.frame</span>(<span class="at">rss =</span> score, <span class="at">r2 =</span> <span class="dv">1</span> <span class="sc">-</span> score<span class="sc">/</span>score0, <span class="at">rank =</span> rank, <span class="at">rep =</span> rep))</span>
+<span id="cb2-64"><a href="#cb2-64"></a>  }</span>
+<span id="cb2-65"><a href="#cb2-65"></a>}</span>
+<span id="cb2-66"><a href="#cb2-66"></a></span>
+<span id="cb2-67"><a href="#cb2-67"></a></span>
+<span id="cb2-68"><a href="#cb2-68"></a>resultsum <span class="ot">&lt;-</span> result <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-69"><a href="#cb2-69"></a>  <span class="fu">mutate</span>(<span class="at">vardiff =</span> r2 <span class="sc">-</span> <span class="fu">lag</span>(r2)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-70"><a href="#cb2-70"></a>  <span class="fu">filter</span>(rank <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-71"><a href="#cb2-71"></a>  <span class="fu">group_by</span>(rank) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-72"><a href="#cb2-72"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(vardiff), <span class="at">upper =</span> <span class="fu">quantile</span>(vardiff, <span class="fl">0.975</span>), <span class="at">lower =</span> <span class="fu">quantile</span>(vardiff, <span class="fl">0.025</span>))</span>
+<span id="cb2-73"><a href="#cb2-73"></a>  </span>
+<span id="cb2-74"><a href="#cb2-74"></a><span class="fu">ggplot</span>(resultsum, <span class="fu">aes</span>(<span class="at">x =</span> rank, <span class="at">y =</span> mean)) <span class="sc">+</span> </span>
+<span id="cb2-75"><a href="#cb2-75"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"lightskyblue2"</span>, <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb2-76"><a href="#cb2-76"></a>           <span class="at">position=</span><span class="fu">position_dodge</span>(), <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb2-77"><a href="#cb2-77"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> upper, <span class="at">ymax=</span> lower), <span class="at">width=</span>.<span class="dv">2</span>,</span>
+<span id="cb2-78"><a href="#cb2-78"></a>                <span class="at">position=</span><span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
+<span id="cb2-79"><a href="#cb2-79"></a>  <span class="fu">ylab</span>(<span class="st">"variance explained"</span>)<span class="sc">+</span></span>
+<span id="cb2-80"><a href="#cb2-80"></a>  <span class="fu">xlab</span>(<span class="st">"PC dimension"</span>)<span class="sc">+</span></span>
+<span id="cb2-81"><a href="#cb2-81"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.svg" class="img-fluid"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Imágenes/missings.png" class="img-fluid"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="section-11" class="slide level2">
+<h2></h2>
+<section id="netflix-competition" class="reducir-tamano">
+<h3>Netflix competition</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math inline">\(480189 \hspace{0.1cm} \textrm{usuarios} \times 17770 \hspace{0.1cm}\textrm{películas}\)</span>. En promedio, cada usuario calificó alrededor de 200 películas, por lo que se observó apenas el <span class="math inline">\(1\%\)</span> de la matriz.</p>
+<p><span class="math display">\[M \approx CG^T\]</span> <span class="math display">\[\widehat{M} = CG^T\]</span> <span class="math display">\[\widehat{m}_{ij} = \sum_{k=1}^r c_{ik}g_{jk}\]</span> <span class="math display">\[\textrm{RSS} = \sum(m_{ij} - \widehat{m}_{ij})^2\]</span> Esta imputación masiva sería inviable mediante el anterior algoritmo. Se requiere una versión mejorada con estrategias adicionales. Hay dos algoritmos: <strong>SoftImpute</strong> y <strong>HardImpute</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Imágenes/netflix1.png" class="img-fluid"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<p><img data-src="Imágenes/netflix2.png" class="img-fluid" data-fig-align="center"> <img data-src="Imágenes/netflix3.png" class="img-fluid" data-fig-align="center"></p>
+</div>
+</div>
+</section>
 </section>
 <section id="perspectivas" class="slide level2">
 <h2>Perspectivas</h2>
@@ -1763,7 +2003,7 @@ tbody tr:last-child {
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1500,
+        width: 1200,
 
         height: 700,
 

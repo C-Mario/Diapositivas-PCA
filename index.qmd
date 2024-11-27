@@ -9,8 +9,9 @@ lang: es
 embed-resources: false
 format:
   revealjs: 
+    fig-format: svg
     html-math-method: mathjax
-    width: 1500 
+    width: 1200 
     mermaid: 
       theme: default
     footer: Análisis de componentes principales PCA
@@ -25,7 +26,19 @@ warning: false
 editor_options: 
   chunk_output_type: console
 smaller: true
+code-summary: ""
 ---
+
+<style>
+.reducir-tamano {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;  /* Ajusta el tamaño de la fuente según sea necesario */
+}
+</style>
 
 ## Contenido
 
@@ -52,6 +65,8 @@ library(gt)
 library(gtExtras)
 library(tidyverse)
 library(tibble)
+library(zoo)
+library(ggplot2)
 ```
 
 Ejemplo introductorio: Informe mundial de felicidad.
@@ -309,7 +324,7 @@ La solución puede ser de una sola dimensión, o más de dos.
 -   El primer caso puede ser visualizado en dos dimensiones usando las dos primeras componentes, pero la segunda componente posiblemente representará una variación alaetoria.
 -   Si la solución es tridimensional, se pueden usar gráficos 3D o gráficos 2Dpara cada par de dimensiones separadamente. Esto último también es válido cuando la solución tiene cuatro dimensiones o más.
 
-## Interpretación de un biplot
+## Interpretación del PCA y biplot
 
 :::: {.columns}
 
@@ -321,7 +336,7 @@ La solución puede ser de una sola dimensión, o más de dos.
 happy.cor <- cor(cbind(happy.st, happy.rpc))[1:5,6:10] |> as.data.frame() 
 row.names(happy.cor) <- c("$$\\textrm{Social}$$","$$\\textrm{Life}$$","$$\\textrm{Choises}$$","$$\\textrm{Generosity}$$","$$\\textrm{Corruption}$$")
 colnames(happy.cor) <- c("PC1", "PC2", "PC3", "PC4", "PC5")
-happy.res <- rbind("$$\\textrm{Valores singulares}\\times p$$" = happy.pca$sv*sqrt(5), happy.cor,
+happy.res <- rbind("$$\\textrm{Valores singulares}/\\sqrt(n)$$" = happy.pca$sv*sqrt(5), happy.cor,
                    "$$R^2 $$" = happy.cor |> apply(2, FUN = function(x) x^2), "$$\\textrm{SS}$$" = happy.cor |> apply(2, FUN = function(x) sum(x^2)))
 happy.res[13,] <- happy.res[12,]/5 * 100
 row.names(happy.res)[13] <- "$$\\%$$"
@@ -366,10 +381,102 @@ happy.res |> round(3) |> gt(rownames_to_stub = T) |> data_color(2:3,palette = c(
 
 ::::
 
-## 
-```{r}
+## Aplicaciones
 
+### Datos de alta dimensionalidad
+
+```{r}
+#| echo: false
+#| output: false
+### functions to compute RSS and explained variances on first two PC
+rss <- function(X, decomp, r){
+  if(r == 0) X.hat <- matrix(0, nrow(X), ncol(X))
+  else{
+    pcomp <-  X %*% decomp$v[, 1:r, drop = F]
+    X.hat <- pcomp %*% solve(t(pcomp) %*% pcomp) %*% t(pcomp) %*% X
+  }
+  sum((X - X.hat)^2)
+}
+
+var.exp <- function(X, decomp){
+  rss0 <- rss(X, decomp, 0)
+  rss1 <- rss(X, decomp, 1)
+  rss2 <- rss(X, decomp, 2)
+  c((rss0 - rss1)/rss0,
+    (rss1 - rss2)/rss0)
+}
+
+#############################################
+### Khan cancer data: non-sparse and sparse #
+#############################################
+
+require(ISLR2)
+data(Khan)
+khan.x <- Khan$xtrain
+khan.y <- Khan$ytrain
+table(khan.y)
+
+### colours and labels definition
+greys <- rep("",81)
+for(i in 1:81) greys[i] <- paste("grey",i+15,sep="")
+greys <- rev(greys)
+col <- c("blue","red")
+require(RColorBrewer)
+khan.cols <- brewer.pal(4, "Dark2")
+khan.labs <- c("BL","EW","NB","RM")
+
+### Khan non-sparse
+khan.X   <- sqrt(1/nrow(khan.x))*scale(khan.x, scale=FALSE)*sqrt(1/ncol(khan.x))
+khan.svd <- svd(khan.X)
+khan.rpc <- sqrt(nrow(khan.x))*khan.svd$u %*% diag(khan.svd$d)
+khan.ccc <- khan.svd$v  
+khan.ctr <- rowSums(khan.ccc[,1:2]^2) 
+khan.ctr <- khan.ctr/max(khan.ctr)
+khan.grey <- round(khan.ctr*80)+1
+
+### Two ways of computing the proportions of explained variance
+100*khan.svd$d^2/sum(khan.svd$d^2)
+
+var.exp(khan.X, khan.svd)
+# [1] 0.1537229 0.1313125
 ```
+
+```{r}
+#| out-width: 70%
+#| out-height: 70%
+# png(file = "e.png", width = 35, units="cm", height = 28, res=1000)
+### FIG 4A 
+rescale <- 10
+par(mar=c(4.2,4,2,2.5), mgp=c(2,0.7,0), font.lab=2, las=1,
+    cex.axis = 1, cex.lab = 1, cex.main = 1, cex.sub = 1)
+plot(rbind(khan.rpc, rescale*khan.ccc), type="n", xlab="PC1 (15.4%)", ylab="PC2 (13.1%)", main="", asp=1)
+axis(1)
+axis(2)
+axis(3, at = axTicks(3), labels = round(axTicks(3)/rescale, 2), 
+     col = "black", col.ticks = col[2], col.axis = col[2])
+axis(4, at = axTicks(4), labels = round(axTicks(4)/rescale, 2), 
+     col = "black", col.ticks = col[2], col.axis = col[2])
+abline(v=0, h=0, lty=2, col="gray")
+points(rescale*khan.ccc, col=greys[khan.grey], pch=21, bg=greys[khan.grey], cex=0.5)
+### convex hulls and group labels
+for(g in 1:4) {
+  foo <- khan.rpc[khan.y==g,]
+  hpts <- chull(foo)
+  hpts <- c(hpts, hpts[1])
+  lines(foo[hpts, ], col=khan.cols[g], lty=2)
+ }
+text(khan.rpc, labels=khan.labs[khan.y], col=khan.cols[khan.y], font=2, cex=0.4)
+### group means and confidence ellipses
+require(easyCODA)
+set.seed(123)
+CIplot_biv(khan.rpc[,1], khan.rpc[,2], group=factor(khan.y), groupnames=khan.labs, 
+           groupcols=khan.cols, shownames=FALSE, add=TRUE, shade=TRUE)
+set.seed(123)
+CIplot_biv(khan.rpc[,1], khan.rpc[,2], group=factor(khan.y), groupnames=khan.labs, 
+           groupcols=khan.cols, add=TRUE)
+```
+
+<!-- ![](e.png){fig-align="center"} -->
 
 
 ## Aplicaciones
@@ -380,6 +487,162 @@ happy.res |> round(3) |> gt(rownames_to_stub = T) |> data_color(2:3,palette = c(
 
 ## Limitaciones y optimizaciones
 
+Pueden existir limitaciones prácticas cuando el **PCA** es aplicado. Esto debido al gran tamaño y dimensionalidad del conjunto de datos en cuestión, generando problemas computacionales. 
+
+Ejemplos claros de este problema pueden surgir en aplicaciones tales como:
+
+- Clasificación de imágenes,
+- Compresión de imágenes,
+- Reconocimiento facial
+- Modelamiento de procesos industriales,
+- Finanzas cuantitativas,
+- Neurociencia,
+- Génetica,
+- Genómica,
+
+entre otros.
+
+## 
+Las descomposiciones **EVD** y **SVD** son computacionalmente demandantes cuando las matrices son muy grandes, y además requieren guardar la matriz completa en la memoria.
+
+###### Soluciones:
+
+- ***Métodos batch (por lotes):*** Procesa todos los datos a la vez (offline), adecuado cuando los datos pueden almacenarse en memoria.
+- ***Métodos Incrementales (en línea):*** Actualiza la descomposición con cada nuevo conjunto de datos (online), ideal para flujos de datos en tiempo real o cuando la matriz es demasiado grande para ser almacenada de una sola vez.
+
+## Valores faltantes usando SVD
+
+Cuando la matriz de datos es parcialmente observada (hay datos faltantes), existen alternativas para proceder con la aplicación del **PCA**:
+
+- Remover las filas (casos) de la matriz con datos faltantes.
+- Reemplazar los valores faltantes de una columna en específico por su respectiva media.
+- Reconstrucción de la matriz usando **SVD**
+
+Este último método, asume que $X$ es una matrix con valores faltantes que ha sido centrada y escalada usando los valores observados. La idea es encontrar la matriz $X$ de rango $r$, denotada $X_r$ que minimice la suma de cuadrados de la matriz original.
+
+## 
+#### Algoritmo de imputación de datos mediante SVD
+:::: {.columns}
+
+::: {.column width="50%"}
+**Ejemplo de simulación:** Se simula $10\%$ de datos faltantes en la matriz de datos completa del *World Happiness Report* la cuál tiene $149 \times 5 = 745$ entradas.
+
+```{r}
+#| echo: true
+#| code-fold: true
+#####################
+prop <- 0.1
+nrep <- 100
+#####################
+
+df <- HAPPY
+info <- df[,c(1:2)] %>%
+  rename(country = 1, region = 2)
+df <- df[,c(8:12)] %>% 
+  rename(social = 1, life = 2, choice = 3, generosity = 4, corruption = 5) %>%
+  mutate(life = as.numeric(gsub(",","",life)))
+n <- nrow(df) * ncol(df)
+
+rss <- function(X, A){
+  sum((X - A)^2, na.rm = TRUE)
+}
+
+mPCA <- function(X, rank, maxit = 100, thresh = 1e-5){
+  A <- outer(rep(1, nrow(X)), colMeans(X, na.rm = T))
+  score0 <- rss(X, A)
+  delta <- Inf
+  it <- 0
+  while(it < maxit & delta > thresh){
+    #impute
+    Xtilde <- X
+    Xtilde[is.na(X)] <- A[is.na(X)]
+    #center
+    m <- colMeans(Xtilde)
+    Xtilde <- scale(Xtilde, center = m, scale = F)
+    #lrma
+    SVD <- svd(Xtilde)
+    A <- SVD$u[, 1:rank, drop = F] %*% diag(SVD$d[1:rank], rank, rank) %*% t(SVD$v[, 1:rank, drop = F])
+    #unscale
+    A <- scale(A, center = -m, scale = F)
+    #loss
+    score <- rss(X, A)
+    delta <- abs((score - score0)/score0)
+    #cat("iter", it , "rss", score, "delta", delta, "\n")
+    score0 <- score
+    it <- it + 1
+  }
+  return(score)
+}
+
+mPCAnull <- function(X){
+  A <- outer(rep(1, nrow(X)), colMeans(X, na.rm = T))
+  score0 <- rss(X, A)
+  return(score0)
+}
+
+result <- c()
+for(rep in 1:nrep){
+  missing <- sample(1:n, n*prop)
+  df_upd <- as.matrix(df)
+  df_upd[missing] <- NA
+  s <- apply(df_upd, 2, sd, na.rm = T)
+  df_upd <- scale(df_upd, scale = s, center = F) 
+  
+  score0 <- mPCAnull(df_upd) 
+  result <- rbind(result, data.frame(rss = score0, r2 = 0, rank = 0, rep = rep))
+  for(rank in 1:4){
+    score <- mPCA(df_upd, rank)
+    result <- rbind(result, data.frame(rss = score, r2 = 1 - score/score0, rank = rank, rep = rep))
+  }
+}
+
+
+resultsum <- result %>% group_by(rep) %>% 
+  mutate(vardiff = r2 - lag(r2)) %>% 
+  filter(rank > 0) %>% 
+  group_by(rank) %>% 
+  summarise(mean = mean(vardiff), upper = quantile(vardiff, 0.975), lower = quantile(vardiff, 0.025))
+  
+ggplot(resultsum, aes(x = rank, y = mean)) + 
+  geom_bar(stat="identity", fill = "lightskyblue2", color = "black",
+           position=position_dodge(), width = 0.7) +
+  geom_errorbar(aes(ymin = upper, ymax= lower), width=.2,
+                position=position_dodge(.9)) +
+  ylab("variance explained")+
+  xlab("PC dimension")+
+  theme_classic()
+```
+
+:::
+::: {.column width="50%"}
+![](Imágenes/missings.png){fig-align="center"}
+:::
+
+::::
+
+##
+<div class="reducir-tamano">
+### Netflix competition
+:::: {.columns}
+
+::: {.column width="50%"}
+$480189 \hspace{0.1cm} \textrm{usuarios} \times 17770 \hspace{0.1cm}\textrm{películas}$. En promedio, cada usuario calificó alrededor de 200 películas, por lo que se observó apenas el $1\%$ de la matriz.
+
+$$M \approx CG^T$$
+$$\widehat{M} = CG^T$$
+$$\widehat{m}_{ij} = \sum_{k=1}^r c_{ik}g_{jk}$$
+$$\textrm{RSS} = \sum(m_{ij} - \widehat{m}_{ij})^2$$
+Esta imputación masiva sería inviable mediante el anterior algoritmo. Se requiere una versión mejorada con estrategias adicionales. Hay dos algoritmos: **SoftImpute** y **HardImpute**.
+
+![](Imágenes/netflix1.png){fig-align="center"}
+:::
+::: {.column width="50%"}
+![](Imágenes/netflix2.png){fig-align="center"}
+![](Imágenes/netflix3.png){fig-align="center"}
+:::
+
+::::
+</div>
 ## Perspectivas
 
 ## Conclusiones finales

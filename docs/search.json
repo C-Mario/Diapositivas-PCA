@@ -84,15 +84,22 @@
     "text": "La solución de un PCA no tiene por qué ser siempre de dos dimensiones.\nLa solución puede ser de una sola dimensión, o más de dos.\n\nEl primer caso puede ser visualizado en dos dimensiones usando las dos primeras componentes, pero la segunda componente posiblemente representará una variación alaetoria.\nSi la solución es tridimensional, se pueden usar gráficos 3D o gráficos 2Dpara cada par de dimensiones separadamente. Esto último también es válido cuando la solución tiene cuatro dimensiones o más."
   },
   {
-    "objectID": "index.html#interpretación-de-un-biplot",
-    "href": "index.html#interpretación-de-un-biplot",
+    "objectID": "index.html#interpretación-del-pca-y-biplot",
+    "href": "index.html#interpretación-del-pca-y-biplot",
     "title": "Principal Component Analysis",
-    "section": "Interpretación de un biplot",
-    "text": "Interpretación de un biplot\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n      \n      PC1\n      PC2\n      PC3\n      PC4\n      PC5\n      SS\n    \n  \n  \n    \n      Valores singulares\n    \n    $$\\textrm{Valores singulares}\\times p$$\n1.527\n1.103\n0.835\n0.689\n0.494\n5\n    \n      Correlaciones entre las componentes principales y las variables originales\n    \n    $$\\textrm{Social}$$\n0.825\n-0.295\n0.303\n0.183\n-0.328\n1\n    $$\\textrm{Life}$$\n0.862\n-0.269\n0.002\n0.252\n0.347\n1\n    $$\\textrm{Choises}$$\n0.764\n0.285\n0.178\n-0.549\n0.05\n1\n    $$\\textrm{Generosity}$$\n-0.007\n0.884\n0.38\n0.268\n0.038\n1\n    $$\\textrm{Corruption}$$\n-0.584\n-0.451\n0.659\n-0.091\n0.114\n1\n    \n      Variabiliad explicada por variable\n    \n    $$R^2. \\mathrm{Social}$$\n0.68\n0.087\n0.092\n0.033\n0.108\n—\n    $$R^2. \\mathrm{Life}$$\n0.744\n0.072\n0\n0.063\n0.121\n—\n    $$R^2. \\mathrm{Choises}$$\n0.583\n0.081\n0.032\n0.301\n0.002\n—\n    $$R^2. \\mathrm{Generosity}$$\n0\n0.782\n0.145\n0.072\n0.001\n—\n    $$R^2. \\mathrm{Corruption}$$\n0.341\n0.203\n0.435\n0.008\n0.013\n—\n    \n      Variabilidad explicada\n    \n    $$\\textrm{SS}$$\n2.348\n1.226\n0.703\n0.478\n0.245\n5\n    $$\\%$$\n46.97%\n24.51%\n14.05%\n9.57%\n4.91%\n100.00%"
+    "section": "Interpretación del PCA y biplot",
+    "text": "Interpretación del PCA y biplot\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n      \n      PC1\n      PC2\n      PC3\n      PC4\n      PC5\n      SS\n    \n  \n  \n    \n      Valores singulares\n    \n    $$\\textrm{Valores singulares}/\\sqrt(n)$$\n1.527\n1.103\n0.835\n0.689\n0.494\n5\n    \n      Correlaciones entre las componentes principales y las variables originales\n    \n    $$\\textrm{Social}$$\n0.825\n-0.295\n0.303\n0.183\n-0.328\n1\n    $$\\textrm{Life}$$\n0.862\n-0.269\n0.002\n0.252\n0.347\n1\n    $$\\textrm{Choises}$$\n0.764\n0.285\n0.178\n-0.549\n0.05\n1\n    $$\\textrm{Generosity}$$\n-0.007\n0.884\n0.38\n0.268\n0.038\n1\n    $$\\textrm{Corruption}$$\n-0.584\n-0.451\n0.659\n-0.091\n0.114\n1\n    \n      Variabiliad explicada por variable\n    \n    $$R^2. \\mathrm{Social}$$\n0.68\n0.087\n0.092\n0.033\n0.108\n—\n    $$R^2. \\mathrm{Life}$$\n0.744\n0.072\n0\n0.063\n0.121\n—\n    $$R^2. \\mathrm{Choises}$$\n0.583\n0.081\n0.032\n0.301\n0.002\n—\n    $$R^2. \\mathrm{Generosity}$$\n0\n0.782\n0.145\n0.072\n0.001\n—\n    $$R^2. \\mathrm{Corruption}$$\n0.341\n0.203\n0.435\n0.008\n0.013\n—\n    \n      Variabilidad explicada\n    \n    $$\\textrm{SS}$$\n2.348\n1.226\n0.703\n0.478\n0.245\n5\n    $$\\%$$\n46.97%\n24.51%\n14.05%\n9.57%\n4.91%\n100.00%"
   },
   {
     "objectID": "index.html#aplicaciones",
     "href": "index.html#aplicaciones",
+    "title": "Principal Component Analysis",
+    "section": "Aplicaciones",
+    "text": "Aplicaciones\nDatos de alta dimensionalidad"
+  },
+  {
+    "objectID": "index.html#aplicaciones-1",
+    "href": "index.html#aplicaciones-1",
     "title": "Principal Component Analysis",
     "section": "Aplicaciones",
     "text": "Aplicaciones"
@@ -109,7 +116,35 @@
     "href": "index.html#limitaciones-y-optimizaciones",
     "title": "Principal Component Analysis",
     "section": "Limitaciones y optimizaciones",
-    "text": "Limitaciones y optimizaciones"
+    "text": "Limitaciones y optimizaciones\nPueden existir limitaciones prácticas cuando el PCA es aplicado. Esto debido al gran tamaño y dimensionalidad del conjunto de datos en cuestión, generando problemas computacionales.\nEjemplos claros de este problema pueden surgir en aplicaciones tales como:\n\nClasificación de imágenes,\nCompresión de imágenes,\nReconocimiento facial\nModelamiento de procesos industriales,\nFinanzas cuantitativas,\nNeurociencia,\nGénetica,\nGenómica,\n\nentre otros."
+  },
+  {
+    "objectID": "index.html#section-9",
+    "href": "index.html#section-9",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Las descomposiciones EVD y SVD son computacionalmente demandantes cuando las matrices son muy grandes, y además requieren guardar la matriz completa en la memoria.\nSoluciones:\n\nMétodos batch (por lotes): Procesa todos los datos a la vez (offline), adecuado cuando los datos pueden almacenarse en memoria.\nMétodos Incrementales (en línea): Actualiza la descomposición con cada nuevo conjunto de datos (online), ideal para flujos de datos en tiempo real o cuando la matriz es demasiado grande para ser almacenada de una sola vez."
+  },
+  {
+    "objectID": "index.html#valores-faltantes-usando-svd",
+    "href": "index.html#valores-faltantes-usando-svd",
+    "title": "Principal Component Analysis",
+    "section": "Valores faltantes usando SVD",
+    "text": "Valores faltantes usando SVD\nCuando la matriz de datos es parcialmente observada (hay datos faltantes), existen alternativas para proceder con la aplicación del PCA:\n\nRemover las filas (casos) de la matriz con datos faltantes.\nReemplazar los valores faltantes de una columna en específico por su respectiva media.\nReconstrucción de la matriz usando SVD\n\nEste último método, asume que \\(X\\) es una matrix con valores faltantes que ha sido centrada y escalada usando los valores observados. La idea es encontrar la matriz \\(X\\) de rango \\(r\\), denotada \\(X_r\\) que minimice la suma de cuadrados de la matriz original."
+  },
+  {
+    "objectID": "index.html#section-10",
+    "href": "index.html#section-10",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Algoritmo de imputación de datos mediante SVD\n\n\nEjemplo de simulación: Se simula \\(10\\%\\) de datos faltantes en la matriz de datos completa del World Happiness Report la cuál tiene \\(149 \\times 5 = 745\\) entradas.\n\n\n\n#####################\nprop &lt;- 0.1\nnrep &lt;- 100\n#####################\n\ndf &lt;- HAPPY\ninfo &lt;- df[,c(1:2)] %&gt;%\n  rename(country = 1, region = 2)\ndf &lt;- df[,c(8:12)] %&gt;% \n  rename(social = 1, life = 2, choice = 3, generosity = 4, corruption = 5) %&gt;%\n  mutate(life = as.numeric(gsub(\",\",\"\",life)))\nn &lt;- nrow(df) * ncol(df)\n\nrss &lt;- function(X, A){\n  sum((X - A)^2, na.rm = TRUE)\n}\n\nmPCA &lt;- function(X, rank, maxit = 100, thresh = 1e-5){\n  A &lt;- outer(rep(1, nrow(X)), colMeans(X, na.rm = T))\n  score0 &lt;- rss(X, A)\n  delta &lt;- Inf\n  it &lt;- 0\n  while(it &lt; maxit & delta &gt; thresh){\n    #impute\n    Xtilde &lt;- X\n    Xtilde[is.na(X)] &lt;- A[is.na(X)]\n    #center\n    m &lt;- colMeans(Xtilde)\n    Xtilde &lt;- scale(Xtilde, center = m, scale = F)\n    #lrma\n    SVD &lt;- svd(Xtilde)\n    A &lt;- SVD$u[, 1:rank, drop = F] %*% diag(SVD$d[1:rank], rank, rank) %*% t(SVD$v[, 1:rank, drop = F])\n    #unscale\n    A &lt;- scale(A, center = -m, scale = F)\n    #loss\n    score &lt;- rss(X, A)\n    delta &lt;- abs((score - score0)/score0)\n    #cat(\"iter\", it , \"rss\", score, \"delta\", delta, \"\\n\")\n    score0 &lt;- score\n    it &lt;- it + 1\n  }\n  return(score)\n}\n\nmPCAnull &lt;- function(X){\n  A &lt;- outer(rep(1, nrow(X)), colMeans(X, na.rm = T))\n  score0 &lt;- rss(X, A)\n  return(score0)\n}\n\nresult &lt;- c()\nfor(rep in 1:nrep){\n  missing &lt;- sample(1:n, n*prop)\n  df_upd &lt;- as.matrix(df)\n  df_upd[missing] &lt;- NA\n  s &lt;- apply(df_upd, 2, sd, na.rm = T)\n  df_upd &lt;- scale(df_upd, scale = s, center = F) \n  \n  score0 &lt;- mPCAnull(df_upd) \n  result &lt;- rbind(result, data.frame(rss = score0, r2 = 0, rank = 0, rep = rep))\n  for(rank in 1:4){\n    score &lt;- mPCA(df_upd, rank)\n    result &lt;- rbind(result, data.frame(rss = score, r2 = 1 - score/score0, rank = rank, rep = rep))\n  }\n}\n\n\nresultsum &lt;- result %&gt;% group_by(rep) %&gt;% \n  mutate(vardiff = r2 - lag(r2)) %&gt;% \n  filter(rank &gt; 0) %&gt;% \n  group_by(rank) %&gt;% \n  summarise(mean = mean(vardiff), upper = quantile(vardiff, 0.975), lower = quantile(vardiff, 0.025))\n  \nggplot(resultsum, aes(x = rank, y = mean)) + \n  geom_bar(stat=\"identity\", fill = \"lightskyblue2\", color = \"black\",\n           position=position_dodge(), width = 0.7) +\n  geom_errorbar(aes(ymin = upper, ymax= lower), width=.2,\n                position=position_dodge(.9)) +\n  ylab(\"variance explained\")+\n  xlab(\"PC dimension\")+\n  theme_classic()"
+  },
+  {
+    "objectID": "index.html#section-11",
+    "href": "index.html#section-11",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Netflix competition\n\n\n\\(480189 \\hspace{0.1cm} \\textrm{usuarios} \\times 17770 \\hspace{0.1cm}\\textrm{películas}\\). En promedio, cada usuario calificó alrededor de 200 películas, por lo que se observó apenas el \\(1\\%\\) de la matriz.\n\\[M \\approx CG^T\\] \\[\\widehat{M} = CG^T\\] \\[\\widehat{m}_{ij} = \\sum_{k=1}^r c_{ik}g_{jk}\\] \\[\\textrm{RSS} = \\sum(m_{ij} - \\widehat{m}_{ij})^2\\] Esta imputación masiva sería inviable mediante el anterior algoritmo. Se requiere una versión mejorada con estrategias adicionales. Hay dos algoritmos: SoftImpute y HardImpute."
   },
   {
     "objectID": "index.html#perspectivas",
