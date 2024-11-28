@@ -1,7 +1,7 @@
 ---
 title: "Principal Component Analysis"
 # subtitle: "Seminario de Estadística"
-author: "Michael Greenacre -- Patrick J. F. Groenen -- Trevor Hastie -- Alfonso Iodice d’Enza4 -- Angelos Markos -- Elena Tuzhilina \n \n Nicolás -- David -- Mario"
+author: "Michael Greenacre -- Patrick J. F. Groenen -- Trevor Hastie -- Alfonso Iodice d’Enza <br /> Angelos Markos -- Elena Tuzhilina <br /> <br /> Nicolás Romero -- David Chaparro -- Mario Castaño"
 institute: UNAL - Departamento de estadística
 date: today
 date-format: "dddd, D [de] MMMM [de] YYYY"
@@ -40,6 +40,16 @@ code-summary: ""
 }
 </style>
 
+```{r}
+require(easyCODA)
+library(gt)
+library(gtExtras)
+library(tidyverse)
+library(tibble)
+library(zoo)
+library(ggplot2)
+```
+
 ## Contenido
 
 ::: incremental
@@ -53,39 +63,50 @@ code-summary: ""
 8.  Conclusiones finales
 :::
 
-## 
-
-Principal components are a few linear combinations of the original variables that maximally explain the variance of all the variables
-
 ## Introducción
 
-```{r}
-require(easyCODA)
-library(gt)
-library(gtExtras)
-library(tidyverse)
-library(tibble)
-library(zoo)
-library(ggplot2)
-```
+- **PCA** es una técnica estadística multivariada que resume información compleja. 
+- Permite identificar patrones en los datos y reducir su dimensionalidad. 
+- Los componentes principales (**PCs**) resumen la mayor parte de la variabilidad de los datos originales. 
 
-Ejemplo introductorio: Informe mundial de felicidad.
+***Ejemplo introductorio:*** Informe Mundial de la Felicidad 2021 para analizar indicadores de bienestar en 149 países. 
+
+- Apoyo social (***Social***)
+- Esperanza de vida saludable  (***Life***)
+- Libertad de elección (***Choices***)
+- Generosidad (***Generosity***)
+- Percepción de corrupción  (***Corruption***)
+
+## {.center}
+
+```{css, echo = FALSE}
+.center h2 {
+  text-align: center;
+}
+```
 
 ```{r}
 HAPPY <- read.csv("Datos/world-happiness-report-2021.csv", check.names=FALSE)
 ```
 
 ```{r}
+#| output: false
 HAPPY |> count(`Regional indicator`) |> gt() |> gt_theme_538()
 ```
 
-El PCA busca una combinación lineal de los indicadores que tengan la máxima varianza. Es decir, los combina de manera que reflejen la mayor variación entre los $149$ países.
+El **PCA** busca una combinación lineal de los indicadores que maximice la varianza. Es decir, los combina de manera que reflejen la mayor variación entre los $149$ países.
 
-$$\textrm{PC}1 = 0.538 (Social) + 0.563 (Life) + 0.498 (Choices)
-− 0.004 (Generosity) - 0.381 (Corruption)$$ $$\textrm{PC}2 = − 0.266 (Social) − 0.243 (Life) + 0.258 (Choices)
-+ 0.799 (Generosity) − 0.407 (Corruption)$$
+$$
+\small\textrm{PC}1 = 0.538 (Social) + 0.563 (Life) + 0.498 (Choices)
+− 0.004 (Generosity) - 0.381 (Corruption)
+$$
+$$
+\small\textrm{PC}2 = − 0.266 (Social) − 0.243 (Life) + 0.258 (Choices)
++ 0.799 (Generosity) − 0.407 (Corruption)
+$$
 
 ```{r}
+#| echo: false
 ### PCA on 5 variables, standardized (PCA function from easyCODA package)
 happy <- HAPPY[,8:12]
 happy.st <- scale(happy)
@@ -94,6 +115,7 @@ happy.pca <- PCA(happy.st, weight=FALSE)
 ```
 
 ```{r}
+#| output: false
 ### Percentages of variance
 round(100*happy.pca$sv^2 / sum(happy.pca$sv^2),1)
 # [1] 47.0 24.5 14.1  9.6  4.9
@@ -185,64 +207,31 @@ text(happy.region, labels=rownames(happy.region), cex=0.9, font=2, col=region.co
 # dev.off()
 ```
 
-![](a.png){fig-align="center"}
-
-## 
-
-```{r}
-png(file = "b.png", width = 28, units="cm", height = 20, res=100)
-### Figure 1B
-happy.ccc <- happy.csc
-happy.ccc[,2] <- -happy.csc[,2]
-happy.region[,2] <- -happy.region[,2]
-supp.reg[,2] <- -supp.reg[,2]
-happy.rpc[,2] <- -happy.rpc[,2]
-# happy.ccc[,1] <- -happy.ccc[,1] 
-col <- c("blue","red")
-region.pch <- 1:10
-region.cex <- c(1,rep(0.8,8),1)
-shortnames <- c("Social", "Life", "Choices", "Generosity", "Corruption")
-rescale <- 1
-# pdf(file="Fig1Bnew.pdf", width=9.5, height=7.5, useDingbats=FALSE, family="ArialMT")
-par(mar=c(4.2,4,2,2.5), mgp=c(2,0.7,0), font.lab=2, cex.axis=0.8, las=1, mfrow=c(1,1))
-plot(rbind(happy.rpc, rescale*happy.ccc), type="n", xlab="PC1 (47.0%)", ylab="PC2 (24.5%)", main="", asp=1)
-#axis(1)
-#axis(2)
-#axis(3, at = axTicks(3), labels = round(axTicks(3)/rescale, 
-#                                        2), col = "black", col.ticks = col[2], col.axis = col[2])
-#axis(4, at = axTicks(4), labels = round(axTicks(4)/rescale, 
-#                                        2), col = "black", col.ticks = col[2], col.axis = col[2])
-abline(v=0, h=0, lty=2, col="gray")
-arrows(0,0,0.95*rescale*happy.ccc[,1],0.95*rescale*happy.ccc[,2], col="pink", angle=10, length=0.15, lwd=2)
-arrows(0,0,0.95*supp.reg[,1],0.95*supp.reg[,2], col="grey", angle=10, length=0.15, lwd=2)
-points(happy.rpc, pch=region.pch[region.num], cex=region.cex[region.num], 
-       col=region.col[region.num], font=2)
-text(happy.region, labels=rownames(happy.region), cex=0.9, font=2, col=region.col)
-text(rescale*happy.ccc, labels=shortnames, col=col[2], font=4, cex=0.8)
-text(1.03*supp.reg, labels=rownames(supp.reg), col="black", font=4, cex=0.8)
-legend("topleft", legend=rownames(happy.region), col=region.col, pch=region.pch, bty="n", pt.cex=region.cex,
-       text.col=region.col, text.font=2, cex=0.75)#, title="Regions", title.col="black")
-# dev.off()
-```
-
-![](b.png){fig-align="center"}
+###### Representación gráfica de los componentes principales en un espacio bidimensional
+![](d1.png){fig-align="center"}
 
 ## Experimentación
 
-##### [Estandarización de variables]{style="color:green;"}
+##### Estandarización de variables
 
 ![](Imágenes/img1.png){fig-align="center"}
 
 ```{mermaid}
 flowchart LR
   A(Estandarizar\n las variables) --> B(El PCA tiene como objetivo explicar las variaciones de las variables,\n por lo que es esencial que ciertas variables no contribuyan excesivamente\n a esa variación por razones ajenas a la pregunta de investigación.)
-  B --> C[En situaciones donde hay variables en diferentes\n escalas es posible centrar los datos en la media y dividir\n sobre la desviación estándar.]
-  B --> D[Si los datos son de escala positiva se transforman logarítmicamente,\n esto ya es una forma de estandarización de las variables para tener\n escalas aditivas comparables que reflejen las diferencias multiplicativas en las variables]
+  B --> C[En situaciones donde hay variables en diferentes\n escalas, es preferible centrar los datos en la media y dividir\n sobre la desviación estándar.]
+  B --> D[Si los datos son de escala positiva y se transforman logarítmicamente,\n esto ya es una forma de estandarización de las variables para tener\n escalas aditivas comparables que reflejen las diferencias multiplicativas en las variables.]
 ```
 
-## 
+## {.center}
 
-##### [Reducción de la dimensionalidad]{style="color:green;"}
+##### Reducción de la dimensionalidad {.center}
+
+```{css, echo = FALSE}
+.center h2 {
+  text-align: center;
+}
+```
 
 ```{mermaid}
 flowchart LR
@@ -250,23 +239,25 @@ flowchart LR
   A --> C[singular value decomposition SVD]
 ```
 
--   La [EVD]{style="color:red;"} se aplica sobre la matriz de covarianza de los datos
+-   La **EVD** se aplica sobre la matriz de covarianza de los datos
 
--   La [SVD]{style="color:red;"} se aplica a la matrix de datos opcionalmente estandarizada, pero al menos centrada.
+-   La **SVD** se aplica a la matrix de datos opcionalmente estandarizada, pero al menos centrada.
 
-## 
+##
 
-###### [Descomposición en valores propios (EVD)]{style="color:red;"}
+###### Descomposición en valores propios (EVD)
 
 ![](Imágenes/img2.png){fig-align="center"}
 
 calcula valores propios, denotados habitualmente por $\lambda_1,\lambda_2,\cdots$ valores positivos en orden descendente, así como vectores propios correspondientes a cada valor propio, denotados por $v_1,v_2,\cdots$
 
-## 
+## {.nostretch}
 
-###### [Descomposición en valores singulares (SVD)]{style="color:red;"}
+###### Descomposición en valores singulares (SVD)
 
-![](Imágenes/img3.png){fig-align="center"} Da como resultado un conjunto de valores singulares positivos y dos conjuntos de vectores, los vectores singulares izquierdo y derecho, para las filas y columnas respectivamente. Los valores singulares son proporcionales a las raíces cuadradas de los valores propios de la matriz de covarianza y los vectores singulares izquierdo y derecho conducen a la visualización conjunta de casos y variables en forma de un diagrama de dispersión bidimensional.
+![](Imágenes/img3.png){fig-align="center" width="52%"} 
+
+Da como resultado un conjunto de valores singulares positivos y dos conjuntos de vectores, los vectores singulares izquierdo y derecho, para las filas y columnas respectivamente. Los valores singulares son proporcionales a las raíces cuadradas de los valores propios de la matriz de covarianza y los vectores singulares izquierdo y derecho conducen a la visualización conjunta de casos y variables en forma de un diagrama de dispersión bidimensional.
 
 ## 
 
@@ -276,10 +267,10 @@ Dada una matrix $X_{n\times p}$ ya centrada o posiblemente estandarizada. La SVD
 
 $$X=UDV^{t}$$ donde,
 
--   $D$ es la matriz diagonal de los valores singulares (positivos) $\alpha_1,alpha_2, \cdots$ en orden descendente
--   $U$ y $V$ son las matrices de los vectores singulares izquierdo y derecho (con columnas $u_1,u_2,…$y $v_1,v_2, \cdots$) y son ortonormales: $U^{t}U = V^{t}V = I$
+- $D$ es la matriz diagonal de los valores singulares (positivos) $\alpha_1,\alpha_2, \cdots$ en orden descendente
+- $U$ y $V$ son las matrices de los vectores singulares izquierdo y derecho (con columnas $u_1,u_2,…$y $v_1,v_2, \cdots$) y son ortonormales:  $U^{t}U = V^{t}V = I$
 
-Escrita como una suma de productos de los vectores individuales, SVD de X queda:
+Escrita como una suma de productos de los vectores individuales, SVD de $X$ queda:
 
 $$\sum_{k=1}^{m}\alpha_ku_kf_k^{t}$$ Donde $m$ es el rango de $X$. Dado que la suma de los cuadrados de cada matriz de rango 1 $u_kv_k^{t}$ es igual a 1 y los valores singulares están en orden descendente, esto sugiere que tomar los primeros términos de la suma dará una aproximación a $X$.
 
@@ -295,14 +286,15 @@ Para el biplot, las coordenadas de la fila PCA (principal) en $r$ dimensiones es
 
 $\textbf{Pregunta de interés:}$ Qué tanta varianza de los datos es explicada por las consecutivas dimensiones de la solución?
 
--   PCA clasifica la variación de los datos en las características principales de los datos en las dimensiones principales y lo que se considera ruido aleatorio, en las dimensiones menores.
+-   **PCA** clasifica la variación de los datos en las características principales de los datos en las dimensiones principales y lo que se considera ruido aleatorio, en las dimensiones menores.
 
 -   La secuencia de porcentajes de varianza explicada sugiere cuantas dimensiones NO ALEATORIAS hay.
 
-## Gráfico de sedimentación (scree plot)
+##
+### Gráfico de sedimentación (scree plot)
 
 ```{r}
-png(file = "c.png", width = 20, units="cm", height = 15, res=100)
+png(file = "c.png", width = 15, units="cm", height = 12, res=100)
 scree <- data.frame(dim = c("dim1","dim2","dim3","dim4","dim5"), happy.perc = happy.perc)
 ggplot(scree, aes(dim, happy.perc, group=1)) +
 geom_bar(stat="identity", fill = "deepskyblue", color = "black", width = 0.7) + 
@@ -313,26 +305,41 @@ geom_text(label = paste(round(happy.perc,2),"%"), vjust = -0.4, hjust = 0.5) + y
 
 ![](c.png){fig-align="center"}
 
-## Otras formas
+## {.center}
 
-## 
+```{css, echo = FALSE}
+.center h2 {
+  text-align: center;
+}
+```
 
-La solución de un PCA no tiene por qué ser siempre de dos dimensiones.
+La solución de un **PCA** no tiene por qué ser siempre de dos dimensiones.
 
 La solución puede ser de una sola dimensión, o más de dos.
 
 -   El primer caso puede ser visualizado en dos dimensiones usando las dos primeras componentes, pero la segunda componente posiblemente representará una variación alaetoria.
--   Si la solución es tridimensional, se pueden usar gráficos 3D o gráficos 2Dpara cada par de dimensiones separadamente. Esto último también es válido cuando la solución tiene cuatro dimensiones o más.
+-   Si la solución es tridimensional, se pueden usar gráficos 3D o gráficos 2D para cada par de dimensiones separadamente. Esto último también es válido cuando la solución tiene cuatro dimensiones o más.
 
-## Interpretación del PCA y biplot
+##
+### Interpretación del PCA y biplot
 
 :::: {.columns}
 
 ::: {.column width="55%"}
-![](b.png){fig-align="center"}
+![](d2.png){fig-align="center"}
+
+$$
+\tiny\textrm{PC}1 = 0.538 (Social) + 0.563 (Life) + 0.498 (Choices)
+− 0.004 (Generosity) - 0.381 (Corruption)
+$$
+$$
+\tiny\textrm{PC}2 = − 0.266 (Social) − 0.243 (Life) + 0.258 (Choices)
++ 0.799 (Generosity) − 0.407 (Corruption)
+$$
 :::
 ::: {.column width="45%"}
 ```{r}
+#| echo: false
 happy.cor <- cor(cbind(happy.st, happy.rpc))[1:5,6:10] |> as.data.frame() 
 row.names(happy.cor) <- c("$$\\textrm{Social}$$","$$\\textrm{Life}$$","$$\\textrm{Choises}$$","$$\\textrm{Generosity}$$","$$\\textrm{Corruption}$$")
 colnames(happy.cor) <- c("PC1", "PC2", "PC3", "PC4", "PC5")
@@ -381,9 +388,57 @@ happy.res |> round(3) |> gt(rownames_to_stub = T) |> data_color(2:3,palette = c(
 
 ::::
 
-## Aplicaciones
+## Aplicaciones {.no-scroll}
 
-### Datos de alta dimensionalidad
+### Datos de alta dimensionalidad - casos agrupados
+
+#### Datos Genéticos en Cáncer Infantil
+
+***Contexto:*** El conjunto de datos consiste en una matriz de tamaño $63 \times 2308$ de expresiones genéticas en 63 niños y 2308 genes. 
+
+Los niños tienen tumores pequeños, redondos y de células azules, clasificados en cuatro tipos principales:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- BL (Burkitt lymphoma)
+- EW (Ewing’s sarcoma)
+:::
+
+::: {.column width="50%"}
+- NB (neuroblastoma)
+- RM (rhabdomyosarcoma)
+:::
+
+::::
+
+Los datos ya están log-transformados.
+
+***Objetivos:*** 
+
+- Identificar genes relevantes para la clasificación de tumores. 
+- Separar grupos tumorales usando PCA supervisado y no supervisado. 
+
+##
+
+:::: {.columns}
+
+::: {.column width="50%"}
+#### PCA no supervisado 
+
+![](a1.png){fig-align="center"}
+
+Superposición entre grupos EW y RM.
+:::
+
+::: {.column width="50%"}
+#### PCA supervisado
+![](a2.png){fig-align="center"}
+
+Separación clara de grupos basada en centroides.
+:::
+
+::::
 
 ```{r}
 #| echo: false
@@ -442,6 +497,8 @@ var.exp(khan.X, khan.svd)
 ```
 
 ```{r}
+#| echo: false
+#| output: false
 #| out-width: 70%
 #| out-height: 70%
 # png(file = "e.png", width = 35, units="cm", height = 28, res=1000)
@@ -476,10 +533,67 @@ CIplot_biv(khan.rpc[,1], khan.rpc[,2], group=factor(khan.y), groupnames=khan.lab
            groupcols=khan.cols, add=TRUE)
 ```
 
-<!-- ![](e.png){fig-align="center"} -->
+## 
 
+:::: {.columns}
 
-## Aplicaciones
+::: {.column width="50%"}
+#### Sparse PCA
+![](a3.png){fig-align="center"}
+Reducción de genes a los más relevantes con mínima pérdida de varianza.
+
+:::
+
+::: {.column width="50%"}
+#### Sparce PCA de centroides de grupos
+![](a4.png){fig-align="center"}
+Representación reducida de los centroides de grupos.
+:::
+
+::::
+
+##
+
+### Análisis de Correspondencias
+
+#### Datos del Mar de Barents
+
+***Contexto:*** Muestras recolectadas entre 1999 y 2004 en el Mar de Barents.
+
+- *600 muestras:* Cada muestra corresponde a 15 minutos de arrastre.
+- *66 especies de peces:* Datos dispersos con un $82.6\%$ de valores cero. 
+
+***Objetivos:***
+
+- Identificar cambios temporales en la composición de especies. 
+- Evaluar la evolución de las abundancias relativas entre los años. 
+
+##
+
+***Resultados:***
+
+- Las elipses de confianza del $95\%$ muestran separación entre 1999 y años posteriores. 
+- Especies clave: `Pa_bo` (camarón), más abundante en 1999. `Tr_es` (faneca noruega) Predomina en 2004.
+- Cambios temporales significativos respaldados por el análisis. 
+
+![](c1.png){fig-align="center"}
+
+## 
+### Datos Mixtos
+
+* Combina variables continuas y categóricas para encontrar relaciones clave. 
+* Útil en:
+  + Encuestas que mezclan tipos de preguntas.
+  + Análisis de intervalos, como temperaturas o precios.
+
+### Derivación de escalas e índices
+
+* Permite crear índices combinando múltiples indicadores.
+* Amplia aplicación en:
+  + Economía.
+  + Políticas públicas.
+  + Estudios sociales.
+
 
 ## Reproducibilidad y depósito de datos
 
@@ -502,7 +616,14 @@ Ejemplos claros de este problema pueden surgir en aplicaciones tales como:
 
 entre otros.
 
-## 
+## {.center}
+
+```{css, echo = FALSE}
+.center h2 {
+  text-align: center;
+}
+```
+
 Las descomposiciones **EVD** y **SVD** son computacionalmente demandantes cuando las matrices son muy grandes, y además requieren guardar la matriz completa en la memoria.
 
 ###### Soluciones:
@@ -510,7 +631,8 @@ Las descomposiciones **EVD** y **SVD** son computacionalmente demandantes cuando
 - ***Métodos batch (por lotes):*** Procesa todos los datos a la vez (offline), adecuado cuando los datos pueden almacenarse en memoria.
 - ***Métodos Incrementales (en línea):*** Actualiza la descomposición con cada nuevo conjunto de datos (online), ideal para flujos de datos en tiempo real o cuando la matriz es demasiado grande para ser almacenada de una sola vez.
 
-## Valores faltantes usando SVD
+##
+### Imputación de datos faltantes usando SVD
 
 Cuando la matriz de datos es parcialmente observada (hay datos faltantes), existen alternativas para proceder con la aplicación del **PCA**:
 
@@ -525,7 +647,7 @@ Este último método, asume que $X$ es una matrix con valores faltantes que ha s
 :::: {.columns}
 
 ::: {.column width="50%"}
-**Ejemplo de simulación:** Se simula $10\%$ de datos faltantes en la matriz de datos completa del *World Happiness Report* la cuál tiene $149 \times 5 = 745$ entradas.
+**Ejemplo de simulación:** Se simula el $10\%$ de datos faltantes en la matriz de datos completa del *World Happiness Report* la cuál tiene $149 \times 5 = 745$ entradas.
 
 ```{r}
 #| echo: true
@@ -610,7 +732,12 @@ ggplot(resultsum, aes(x = rank, y = mean)) +
                 position=position_dodge(.9)) +
   ylab("variance explained")+
   xlab("PC dimension")+
-  theme_classic()
+  theme_classic() |>   theme(
+    axis.text.x = element_text(size = 14), # Increase x-axis tick labels
+    axis.text.y = element_text(size = 14), # Increase y-axis tick labels
+    axis.title.x = element_text(size = 16), # Increase x-axis title
+    axis.title.y = element_text(size = 16)  # Increase y-axis title
+  )
 ```
 
 :::
@@ -621,8 +748,7 @@ ggplot(resultsum, aes(x = rank, y = mean)) +
 ::::
 
 ##
-<div class="reducir-tamano">
-### Netflix competition
+#### Netflix competition
 :::: {.columns}
 
 ::: {.column width="50%"}
@@ -642,10 +768,54 @@ Esta imputación masiva sería inviable mediante el anterior algoritmo. Se requi
 :::
 
 ::::
-</div>
-## Perspectivas
+
+## Perspectivas del PCA
+
+- **Versatilidad del PCA:**
+  - Herramienta esencial para análisis exploratorio y aprendizaje no supervisado.
+  - Aplicable a diversas áreas como:
+    - Genética.
+    - Ecología.
+    - Negocios.
+    - Procesamiento de señales.
+
+- **Innovaciones Recientes:**
+  - *Sparse PCA:*
+    - Reduce dimensionalidad seleccionando variables relevantes.
+    - Útil en datasets con miles de variables.
+  - *PCA Supervisado:*
+    - Optimiza la separación entre grupos.
+    - Ejemplo: Clasificación de tumores en estudios genéticos.
+
+- **Aplicaciones No Tradicionales:**
+  - **Imágenes:**
+    - Clasificación de patrones como dígitos manuscritos.
+  - **Formas:**
+    - Análisis de variaciones en alas de mosquitos.
+  - **Funciones:**
+    - Análisis de curvas de movimiento humano.
+
+## 
+![](t1.png){fig-align="center" width=70% height=70%}
 
 ## Conclusiones finales
 
-Se ha mostrado cómo este método simple y versátil puede extraer la información esencial de conjuntos de datos multivariados complejo. ( otras que se puedan ocurrir)
+- ***PCA como herramienta en la reducción de la dimensionalidad:*** Se ha mostrado cómo este método simple y versátil puede extraer la información esencial de conjuntos de datos multivariados complejos.
+- ***Análisis descriptivo de los datos***: El PCA Permite descubrir patrones subyacentes, relaciones entre variables y detectar anomalías que de otro modo serían difíciles de identificar en grandes conjuntos de datos.
+- ***Interpretación de las componentes: *** Aunque el PCA reduce la dimensionalidad, la interpretación de las componentes principales puede ser compleja, especialmente en casos donde las variables originales tienen un significado claro. Es clave poder asociar las componentes obtenidas con las características originales de los datos.
 
+## Conclusiones finales
+
+- ***Limitaciones:*** Una de las limitaciones más importantes del PCA es su sensibilidad a la escala de las variables. Además, PCA es un método lineal, lo que significa que no captura relaciones no lineales entre las variables. Esto puede ser una restricción en conjuntos de datos más complejos.
+- ***Diversidad de aplicaciones:*** La aplicabilidad del PCA es transversal a muchas disciplinas científicas. En todos esos campos, ayuda a reducir la complejidad de los datos (múltiples tipos de objetos) y a facilitar la interpretación y visualización de grandes cantidades de información. 
+- ***Variantes del PCA:*** Se han desarrollado variantes del PCA clásico con el fin de reducir las limitaciones del método. Algunas variantes son: Sparce PCA, PCA con valores faltantes, PCA supervisado, entre otros.
+
+## {.center}
+
+```{css, echo = FALSE}
+.center h2 {
+  text-align: center;
+}
+```
+
+![](pac.jpg){fig-align="center" width=50%, height=50%}

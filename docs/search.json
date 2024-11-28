@@ -7,53 +7,60 @@
     "text": "Contenido\n\n\nIntroducción\nExperimentación\nResultados\nAplicaciones\nReproducibilidad y depósito de datos\nLimitaciones y optimizaciones\nPerspectivas\nConclusiones finales"
   },
   {
-    "objectID": "index.html#section",
-    "href": "index.html#section",
-    "title": "Principal Component Analysis",
-    "section": "",
-    "text": "Principal components are a few linear combinations of the original variables that maximally explain the variance of all the variables"
-  },
-  {
     "objectID": "index.html#introducción",
     "href": "index.html#introducción",
     "title": "Principal Component Analysis",
     "section": "Introducción",
-    "text": "Introducción\nEjemplo introductorio: Informe mundial de felicidad.\n\n\n\n\n\n\n  \n    \n      Regional indicator\n      n\n    \n  \n  \n    Central and Eastern Europe\n17\n    Commonwealth of Independent States\n12\n    East Asia\n6\n    Latin America and Caribbean\n20\n    Middle East and North Africa\n17\n    North America and ANZ\n4\n    South Asia\n7\n    Southeast Asia\n9\n    Sub-Saharan Africa\n36\n    Western Europe\n21\n  \n  \n  \n\n\n\n\nEl PCA busca una combinación lineal de los indicadores que tengan la máxima varianza. Es decir, los combina de manera que reflejen la mayor variación entre los \\(149\\) países.\n\\[\\textrm{PC}1 = 0.538 (Social) + 0.563 (Life) + 0.498 (Choices)\n− 0.004 (Generosity) - 0.381 (Corruption)\\] \\[\\textrm{PC}2 = − 0.266 (Social) − 0.243 (Life) + 0.258 (Choices)\n+ 0.799 (Generosity) − 0.407 (Corruption)\\]\n\n\n[1] 47.0 24.5 14.1  9.6  4.9"
+    "text": "Introducción\n\nPCA es una técnica estadística multivariada que resume información compleja.\nPermite identificar patrones en los datos y reducir su dimensionalidad.\nLos componentes principales (PCs) resumen la mayor parte de la variabilidad de los datos originales.\n\nEjemplo introductorio: Informe Mundial de la Felicidad 2021 para analizar indicadores de bienestar en 149 países.\n\nApoyo social (Social)\nEsperanza de vida saludable (Life)\nLibertad de elección (Choices)\nGenerosidad (Generosity)\nPercepción de corrupción (Corruption)"
+  },
+  {
+    "objectID": "index.html#section",
+    "href": "index.html#section",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "El PCA busca una combinación lineal de los indicadores que maximice la varianza. Es decir, los combina de manera que reflejen la mayor variación entre los \\(149\\) países.\n\\[\n\\small\\textrm{PC}1 = 0.538 (Social) + 0.563 (Life) + 0.498 (Choices)\n− 0.004 (Generosity) - 0.381 (Corruption)\n\\] \\[\n\\small\\textrm{PC}2 = − 0.266 (Social) − 0.243 (Life) + 0.258 (Choices)\n+ 0.799 (Generosity) − 0.407 (Corruption)\n\\]"
+  },
+  {
+    "objectID": "index.html#section-1",
+    "href": "index.html#section-1",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Representación gráfica de los componentes principales en un espacio bidimensional"
   },
   {
     "objectID": "index.html#experimentación",
     "href": "index.html#experimentación",
     "title": "Principal Component Analysis",
     "section": "Experimentación",
-    "text": "Experimentación\nEstandarización de variables\n\n\n\n\n\nflowchart LR\n  A(Estandarizar\\n las variables) --&gt; B(El PCA tiene como objetivo explicar las variaciones de las variables,\\n por lo que es esencial que ciertas variables no contribuyan excesivamente\\n a esa variación por razones ajenas a la pregunta de investigación.)\n  B --&gt; C[En situaciones donde hay variables en diferentes\\n escalas es posible centrar los datos en la media y dividir\\n sobre la desviación estándar.]\n  B --&gt; D[Si los datos son de escala positiva se transforman logarítmicamente,\\n esto ya es una forma de estandarización de las variables para tener\\n escalas aditivas comparables que reflejen las diferencias multiplicativas en las variables]"
+    "text": "Experimentación\nEstandarización de variables\n\n\n\n\n\nflowchart LR\n  A(Estandarizar\\n las variables) --&gt; B(El PCA tiene como objetivo explicar las variaciones de las variables,\\n por lo que es esencial que ciertas variables no contribuyan excesivamente\\n a esa variación por razones ajenas a la pregunta de investigación.)\n  B --&gt; C[En situaciones donde hay variables en diferentes\\n escalas, es preferible centrar los datos en la media y dividir\\n sobre la desviación estándar.]\n  B --&gt; D[Si los datos son de escala positiva y se transforman logarítmicamente,\\n esto ya es una forma de estandarización de las variables para tener\\n escalas aditivas comparables que reflejen las diferencias multiplicativas en las variables.]"
+  },
+  {
+    "objectID": "index.html#section-2",
+    "href": "index.html#section-2",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Reducción de la dimensionalidad\n\n\n\n\n\n\n\nflowchart LR\n  A(Dos caminos) --&gt; B[Eigenvalue decomposition EVD]\n  A --&gt; C[singular value decomposition SVD]\n\n\n\n\n\n\nLa EVD se aplica sobre la matriz de covarianza de los datos\nLa SVD se aplica a la matrix de datos opcionalmente estandarizada, pero al menos centrada."
   },
   {
     "objectID": "index.html#section-3",
     "href": "index.html#section-3",
     "title": "Principal Component Analysis",
     "section": "",
-    "text": "Reducción de la dimensionalidad\n\n\n\n\nflowchart LR\n  A(Dos caminos) --&gt; B[Eigenvalue decomposition EVD]\n  A --&gt; C[singular value decomposition SVD]\n\n\n\n\n\n\nLa EVD se aplica sobre la matriz de covarianza de los datos\nLa SVD se aplica a la matrix de datos opcionalmente estandarizada, pero al menos centrada."
+    "text": "Descomposición en valores propios (EVD)\n\ncalcula valores propios, denotados habitualmente por \\(\\lambda_1,\\lambda_2,\\cdots\\) valores positivos en orden descendente, así como vectores propios correspondientes a cada valor propio, denotados por \\(v_1,v_2,\\cdots\\)"
   },
   {
     "objectID": "index.html#section-4",
     "href": "index.html#section-4",
     "title": "Principal Component Analysis",
     "section": "",
-    "text": "Descomposición en valores propios (EVD)\n\ncalcula valores propios, denotados habitualmente por \\(\\lambda_1,\\lambda_2,\\cdots\\) valores positivos en orden descendente, así como vectores propios correspondientes a cada valor propio, denotados por \\(v_1,v_2,\\cdots\\)"
+    "text": "Descomposición en valores singulares (SVD)\n\n\n\n\n\nDa como resultado un conjunto de valores singulares positivos y dos conjuntos de vectores, los vectores singulares izquierdo y derecho, para las filas y columnas respectivamente. Los valores singulares son proporcionales a las raíces cuadradas de los valores propios de la matriz de covarianza y los vectores singulares izquierdo y derecho conducen a la visualización conjunta de casos y variables en forma de un diagrama de dispersión bidimensional."
   },
   {
     "objectID": "index.html#section-5",
     "href": "index.html#section-5",
     "title": "Principal Component Analysis",
     "section": "",
-    "text": "Descomposición en valores singulares (SVD)\n Da como resultado un conjunto de valores singulares positivos y dos conjuntos de vectores, los vectores singulares izquierdo y derecho, para las filas y columnas respectivamente. Los valores singulares son proporcionales a las raíces cuadradas de los valores propios de la matriz de covarianza y los vectores singulares izquierdo y derecho conducen a la visualización conjunta de casos y variables en forma de un diagrama de dispersión bidimensional."
-  },
-  {
-    "objectID": "index.html#section-6",
-    "href": "index.html#section-6",
-    "title": "Principal Component Analysis",
-    "section": "",
-    "text": "La descomposición SVD y las coordenadas del biplot PCA\nDada una matrix \\(X_{n\\times p}\\) ya centrada o posiblemente estandarizada. La SVD descompone a \\(X\\) en tres matrices:\n\\[X=UDV^{t}\\] donde,\n\n\\(D\\) es la matriz diagonal de los valores singulares (positivos) \\(\\alpha_1,alpha_2, \\cdots\\) en orden descendente\n\\(U\\) y \\(V\\) son las matrices de los vectores singulares izquierdo y derecho (con columnas \\(u_1,u_2,…\\)y \\(v_1,v_2, \\cdots\\)) y son ortonormales: \\(U^{t}U = V^{t}V = I\\)\n\nEscrita como una suma de productos de los vectores individuales, SVD de X queda:\n\\[\\sum_{k=1}^{m}\\alpha_ku_kf_k^{t}\\] Donde \\(m\\) es el rango de \\(X\\). Dado que la suma de los cuadrados de cada matriz de rango 1 \\(u_kv_k^{t}\\) es igual a 1 y los valores singulares están en orden descendente, esto sugiere que tomar los primeros términos de la suma dará una aproximación a \\(X\\).\nPara el biplot, las coordenadas de la fila PCA (principal) en \\(r\\) dimensiones están en las primeras \\(r\\) columnas de \\(UD\\), y las coordenadas de la columna (estándar) en las primeras \\(r\\) columnas de \\(V\\). Los cuadrados de los valores singulares, expresados en relación con su suma, dan los porcentajes de varianza explicada."
+    "text": "La descomposición SVD y las coordenadas del biplot PCA\nDada una matrix \\(X_{n\\times p}\\) ya centrada o posiblemente estandarizada. La SVD descompone a \\(X\\) en tres matrices:\n\\[X=UDV^{t}\\] donde,\n\n\\(D\\) es la matriz diagonal de los valores singulares (positivos) \\(\\alpha_1,\\alpha_2, \\cdots\\) en orden descendente\n\\(U\\) y \\(V\\) son las matrices de los vectores singulares izquierdo y derecho (con columnas \\(u_1,u_2,…\\)y \\(v_1,v_2, \\cdots\\)) y son ortonormales: \\(U^{t}U = V^{t}V = I\\)\n\nEscrita como una suma de productos de los vectores individuales, SVD de \\(X\\) queda:\n\\[\\sum_{k=1}^{m}\\alpha_ku_kf_k^{t}\\] Donde \\(m\\) es el rango de \\(X\\). Dado que la suma de los cuadrados de cada matriz de rango 1 \\(u_kv_k^{t}\\) es igual a 1 y los valores singulares están en orden descendente, esto sugiere que tomar los primeros términos de la suma dará una aproximación a \\(X\\).\nPara el biplot, las coordenadas de la fila PCA (principal) en \\(r\\) dimensiones están en las primeras \\(r\\) columnas de \\(UD\\), y las coordenadas de la columna (estándar) en las primeras \\(r\\) columnas de \\(V\\). Los cuadrados de los valores singulares, expresados en relación con su suma, dan los porcentajes de varianza explicada."
   },
   {
     "objectID": "index.html#resultados",
@@ -63,46 +70,67 @@
     "text": "Resultados\nDimensionalidad de la solución de un PCA\n\\(\\textbf{Pregunta de interés:}\\) Qué tanta varianza de los datos es explicada por las consecutivas dimensiones de la solución?\n\nPCA clasifica la variación de los datos en las características principales de los datos en las dimensiones principales y lo que se considera ruido aleatorio, en las dimensiones menores.\nLa secuencia de porcentajes de varianza explicada sugiere cuantas dimensiones NO ALEATORIAS hay."
   },
   {
-    "objectID": "index.html#gráfico-de-sedimentación-scree-plot",
-    "href": "index.html#gráfico-de-sedimentación-scree-plot",
+    "objectID": "index.html#section-7",
+    "href": "index.html#section-7",
     "title": "Principal Component Analysis",
-    "section": "Gráfico de sedimentación (scree plot)",
+    "section": "",
     "text": "Gráfico de sedimentación (scree plot)"
-  },
-  {
-    "objectID": "index.html#otras-formas",
-    "href": "index.html#otras-formas",
-    "title": "Principal Component Analysis",
-    "section": "Otras formas",
-    "text": "Otras formas"
   },
   {
     "objectID": "index.html#section-8",
     "href": "index.html#section-8",
     "title": "Principal Component Analysis",
     "section": "",
-    "text": "La solución de un PCA no tiene por qué ser siempre de dos dimensiones.\nLa solución puede ser de una sola dimensión, o más de dos.\n\nEl primer caso puede ser visualizado en dos dimensiones usando las dos primeras componentes, pero la segunda componente posiblemente representará una variación alaetoria.\nSi la solución es tridimensional, se pueden usar gráficos 3D o gráficos 2Dpara cada par de dimensiones separadamente. Esto último también es válido cuando la solución tiene cuatro dimensiones o más."
+    "text": "La solución de un PCA no tiene por qué ser siempre de dos dimensiones.\nLa solución puede ser de una sola dimensión, o más de dos.\n\nEl primer caso puede ser visualizado en dos dimensiones usando las dos primeras componentes, pero la segunda componente posiblemente representará una variación alaetoria.\nSi la solución es tridimensional, se pueden usar gráficos 3D o gráficos 2D para cada par de dimensiones separadamente. Esto último también es válido cuando la solución tiene cuatro dimensiones o más."
   },
   {
-    "objectID": "index.html#interpretación-del-pca-y-biplot",
-    "href": "index.html#interpretación-del-pca-y-biplot",
+    "objectID": "index.html#section-9",
+    "href": "index.html#section-9",
     "title": "Principal Component Analysis",
-    "section": "Interpretación del PCA y biplot",
-    "text": "Interpretación del PCA y biplot\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    \n      \n      PC1\n      PC2\n      PC3\n      PC4\n      PC5\n      SS\n    \n  \n  \n    \n      Valores singulares\n    \n    $$\\textrm{Valores singulares}/\\sqrt(n)$$\n1.527\n1.103\n0.835\n0.689\n0.494\n5\n    \n      Correlaciones entre las componentes principales y las variables originales\n    \n    $$\\textrm{Social}$$\n0.825\n-0.295\n0.303\n0.183\n-0.328\n1\n    $$\\textrm{Life}$$\n0.862\n-0.269\n0.002\n0.252\n0.347\n1\n    $$\\textrm{Choises}$$\n0.764\n0.285\n0.178\n-0.549\n0.05\n1\n    $$\\textrm{Generosity}$$\n-0.007\n0.884\n0.38\n0.268\n0.038\n1\n    $$\\textrm{Corruption}$$\n-0.584\n-0.451\n0.659\n-0.091\n0.114\n1\n    \n      Variabiliad explicada por variable\n    \n    $$R^2. \\mathrm{Social}$$\n0.68\n0.087\n0.092\n0.033\n0.108\n—\n    $$R^2. \\mathrm{Life}$$\n0.744\n0.072\n0\n0.063\n0.121\n—\n    $$R^2. \\mathrm{Choises}$$\n0.583\n0.081\n0.032\n0.301\n0.002\n—\n    $$R^2. \\mathrm{Generosity}$$\n0\n0.782\n0.145\n0.072\n0.001\n—\n    $$R^2. \\mathrm{Corruption}$$\n0.341\n0.203\n0.435\n0.008\n0.013\n—\n    \n      Variabilidad explicada\n    \n    $$\\textrm{SS}$$\n2.348\n1.226\n0.703\n0.478\n0.245\n5\n    $$\\%$$\n46.97%\n24.51%\n14.05%\n9.57%\n4.91%\n100.00%"
+    "section": "",
+    "text": "Interpretación del PCA y biplot\n\n\n\n\n\n\n\n\\[\n\\tiny\\textrm{PC}1 = 0.538 (Social) + 0.563 (Life) + 0.498 (Choices)\n− 0.004 (Generosity) - 0.381 (Corruption)\n\\] \\[\n\\tiny\\textrm{PC}2 = − 0.266 (Social) − 0.243 (Life) + 0.258 (Choices)\n+ 0.799 (Generosity) − 0.407 (Corruption)\n\\]\n\n\n\n\n\n\n\n  \n    \n      \n      PC1\n      PC2\n      PC3\n      PC4\n      PC5\n      SS\n    \n  \n  \n    \n      Valores singulares\n    \n    $$\\textrm{Valores singulares}/\\sqrt(n)$$\n1.527\n1.103\n0.835\n0.689\n0.494\n5\n    \n      Correlaciones entre las componentes principales y las variables originales\n    \n    $$\\textrm{Social}$$\n0.825\n0.295\n0.303\n0.183\n-0.328\n1\n    $$\\textrm{Life}$$\n0.862\n0.269\n0.002\n0.252\n0.347\n1\n    $$\\textrm{Choises}$$\n0.764\n-0.285\n0.178\n-0.549\n0.05\n1\n    $$\\textrm{Generosity}$$\n-0.007\n-0.884\n0.38\n0.268\n0.038\n1\n    $$\\textrm{Corruption}$$\n-0.584\n0.451\n0.659\n-0.091\n0.114\n1\n    \n      Variabiliad explicada por variable\n    \n    $$R^2. \\mathrm{Social}$$\n0.68\n0.087\n0.092\n0.033\n0.108\n—\n    $$R^2. \\mathrm{Life}$$\n0.744\n0.072\n0\n0.063\n0.121\n—\n    $$R^2. \\mathrm{Choises}$$\n0.583\n0.081\n0.032\n0.301\n0.002\n—\n    $$R^2. \\mathrm{Generosity}$$\n0\n0.782\n0.145\n0.072\n0.001\n—\n    $$R^2. \\mathrm{Corruption}$$\n0.341\n0.203\n0.435\n0.008\n0.013\n—\n    \n      Variabilidad explicada\n    \n    $$\\textrm{SS}$$\n2.348\n1.226\n0.703\n0.478\n0.245\n5\n    $$\\%$$\n46.97%\n24.51%\n14.05%\n9.57%\n4.91%\n100.00%"
   },
   {
     "objectID": "index.html#aplicaciones",
     "href": "index.html#aplicaciones",
     "title": "Principal Component Analysis",
     "section": "Aplicaciones",
-    "text": "Aplicaciones\nDatos de alta dimensionalidad"
+    "text": "Aplicaciones\nDatos de alta dimensionalidad - casos agrupados\nDatos Genéticos en Cáncer Infantil\nContexto: El conjunto de datos consiste en una matriz de tamaño \\(63 \\times 2308\\) de expresiones genéticas en 63 niños y 2308 genes.\nLos niños tienen tumores pequeños, redondos y de células azules, clasificados en cuatro tipos principales:\n\n\n\nBL (Burkitt lymphoma)\nEW (Ewing’s sarcoma)\n\n\n\nNB (neuroblastoma)\nRM (rhabdomyosarcoma)\n\n\n\nLos datos ya están log-transformados.\nObjetivos:\n\nIdentificar genes relevantes para la clasificación de tumores.\nSeparar grupos tumorales usando PCA supervisado y no supervisado."
   },
   {
-    "objectID": "index.html#aplicaciones-1",
-    "href": "index.html#aplicaciones-1",
+    "objectID": "index.html#section-10",
+    "href": "index.html#section-10",
     "title": "Principal Component Analysis",
-    "section": "Aplicaciones",
-    "text": "Aplicaciones"
+    "section": "",
+    "text": "PCA no supervisado\n\n\n\n\n\nSuperposición entre grupos EW y RM.\n\nPCA supervisado\n\n\n\n\n\nSeparación clara de grupos basada en centroides."
+  },
+  {
+    "objectID": "index.html#section-11",
+    "href": "index.html#section-11",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Sparse PCA\n Reducción de genes a los más relevantes con mínima pérdida de varianza.\n\nSparce PCA de centroides de grupos\n Representación reducida de los centroides de grupos."
+  },
+  {
+    "objectID": "index.html#section-12",
+    "href": "index.html#section-12",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Análisis de Correspondencias\nDatos del Mar de Barents\nContexto: Muestras recolectadas entre 1999 y 2004 en el Mar de Barents.\n\n600 muestras: Cada muestra corresponde a 15 minutos de arrastre.\n66 especies de peces: Datos dispersos con un \\(82.6\\%\\) de valores cero.\n\nObjetivos:\n\nIdentificar cambios temporales en la composición de especies.\nEvaluar la evolución de las abundancias relativas entre los años."
+  },
+  {
+    "objectID": "index.html#section-13",
+    "href": "index.html#section-13",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Resultados:\n\nLas elipses de confianza del \\(95\\%\\) muestran separación entre 1999 y años posteriores.\nEspecies clave: Pa_bo (camarón), más abundante en 1999. Tr_es (faneca noruega) Predomina en 2004.\nCambios temporales significativos respaldados por el análisis."
+  },
+  {
+    "objectID": "index.html#section-14",
+    "href": "index.html#section-14",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Datos Mixtos\n\nCombina variables continuas y categóricas para encontrar relaciones clave.\nÚtil en:\n\nEncuestas que mezclan tipos de preguntas.\nAnálisis de intervalos, como temperaturas o precios.\n\n\nDerivación de escalas e índices\n\nPermite crear índices combinando múltiples indicadores.\nAmplia aplicación en:\n\nEconomía.\nPolíticas públicas.\nEstudios sociales."
   },
   {
     "objectID": "index.html#reproducibilidad-y-depósito-de-datos",
@@ -119,45 +147,59 @@
     "text": "Limitaciones y optimizaciones\nPueden existir limitaciones prácticas cuando el PCA es aplicado. Esto debido al gran tamaño y dimensionalidad del conjunto de datos en cuestión, generando problemas computacionales.\nEjemplos claros de este problema pueden surgir en aplicaciones tales como:\n\nClasificación de imágenes,\nCompresión de imágenes,\nReconocimiento facial\nModelamiento de procesos industriales,\nFinanzas cuantitativas,\nNeurociencia,\nGénetica,\nGenómica,\n\nentre otros."
   },
   {
-    "objectID": "index.html#section-9",
-    "href": "index.html#section-9",
+    "objectID": "index.html#section-15",
+    "href": "index.html#section-15",
     "title": "Principal Component Analysis",
     "section": "",
     "text": "Las descomposiciones EVD y SVD son computacionalmente demandantes cuando las matrices son muy grandes, y además requieren guardar la matriz completa en la memoria.\nSoluciones:\n\nMétodos batch (por lotes): Procesa todos los datos a la vez (offline), adecuado cuando los datos pueden almacenarse en memoria.\nMétodos Incrementales (en línea): Actualiza la descomposición con cada nuevo conjunto de datos (online), ideal para flujos de datos en tiempo real o cuando la matriz es demasiado grande para ser almacenada de una sola vez."
   },
   {
-    "objectID": "index.html#valores-faltantes-usando-svd",
-    "href": "index.html#valores-faltantes-usando-svd",
-    "title": "Principal Component Analysis",
-    "section": "Valores faltantes usando SVD",
-    "text": "Valores faltantes usando SVD\nCuando la matriz de datos es parcialmente observada (hay datos faltantes), existen alternativas para proceder con la aplicación del PCA:\n\nRemover las filas (casos) de la matriz con datos faltantes.\nReemplazar los valores faltantes de una columna en específico por su respectiva media.\nReconstrucción de la matriz usando SVD\n\nEste último método, asume que \\(X\\) es una matrix con valores faltantes que ha sido centrada y escalada usando los valores observados. La idea es encontrar la matriz \\(X\\) de rango \\(r\\), denotada \\(X_r\\) que minimice la suma de cuadrados de la matriz original."
-  },
-  {
-    "objectID": "index.html#section-10",
-    "href": "index.html#section-10",
+    "objectID": "index.html#section-16",
+    "href": "index.html#section-16",
     "title": "Principal Component Analysis",
     "section": "",
-    "text": "Algoritmo de imputación de datos mediante SVD\n\n\nEjemplo de simulación: Se simula \\(10\\%\\) de datos faltantes en la matriz de datos completa del World Happiness Report la cuál tiene \\(149 \\times 5 = 745\\) entradas.\n\n\n\n#####################\nprop &lt;- 0.1\nnrep &lt;- 100\n#####################\n\ndf &lt;- HAPPY\ninfo &lt;- df[,c(1:2)] %&gt;%\n  rename(country = 1, region = 2)\ndf &lt;- df[,c(8:12)] %&gt;% \n  rename(social = 1, life = 2, choice = 3, generosity = 4, corruption = 5) %&gt;%\n  mutate(life = as.numeric(gsub(\",\",\"\",life)))\nn &lt;- nrow(df) * ncol(df)\n\nrss &lt;- function(X, A){\n  sum((X - A)^2, na.rm = TRUE)\n}\n\nmPCA &lt;- function(X, rank, maxit = 100, thresh = 1e-5){\n  A &lt;- outer(rep(1, nrow(X)), colMeans(X, na.rm = T))\n  score0 &lt;- rss(X, A)\n  delta &lt;- Inf\n  it &lt;- 0\n  while(it &lt; maxit & delta &gt; thresh){\n    #impute\n    Xtilde &lt;- X\n    Xtilde[is.na(X)] &lt;- A[is.na(X)]\n    #center\n    m &lt;- colMeans(Xtilde)\n    Xtilde &lt;- scale(Xtilde, center = m, scale = F)\n    #lrma\n    SVD &lt;- svd(Xtilde)\n    A &lt;- SVD$u[, 1:rank, drop = F] %*% diag(SVD$d[1:rank], rank, rank) %*% t(SVD$v[, 1:rank, drop = F])\n    #unscale\n    A &lt;- scale(A, center = -m, scale = F)\n    #loss\n    score &lt;- rss(X, A)\n    delta &lt;- abs((score - score0)/score0)\n    #cat(\"iter\", it , \"rss\", score, \"delta\", delta, \"\\n\")\n    score0 &lt;- score\n    it &lt;- it + 1\n  }\n  return(score)\n}\n\nmPCAnull &lt;- function(X){\n  A &lt;- outer(rep(1, nrow(X)), colMeans(X, na.rm = T))\n  score0 &lt;- rss(X, A)\n  return(score0)\n}\n\nresult &lt;- c()\nfor(rep in 1:nrep){\n  missing &lt;- sample(1:n, n*prop)\n  df_upd &lt;- as.matrix(df)\n  df_upd[missing] &lt;- NA\n  s &lt;- apply(df_upd, 2, sd, na.rm = T)\n  df_upd &lt;- scale(df_upd, scale = s, center = F) \n  \n  score0 &lt;- mPCAnull(df_upd) \n  result &lt;- rbind(result, data.frame(rss = score0, r2 = 0, rank = 0, rep = rep))\n  for(rank in 1:4){\n    score &lt;- mPCA(df_upd, rank)\n    result &lt;- rbind(result, data.frame(rss = score, r2 = 1 - score/score0, rank = rank, rep = rep))\n  }\n}\n\n\nresultsum &lt;- result %&gt;% group_by(rep) %&gt;% \n  mutate(vardiff = r2 - lag(r2)) %&gt;% \n  filter(rank &gt; 0) %&gt;% \n  group_by(rank) %&gt;% \n  summarise(mean = mean(vardiff), upper = quantile(vardiff, 0.975), lower = quantile(vardiff, 0.025))\n  \nggplot(resultsum, aes(x = rank, y = mean)) + \n  geom_bar(stat=\"identity\", fill = \"lightskyblue2\", color = \"black\",\n           position=position_dodge(), width = 0.7) +\n  geom_errorbar(aes(ymin = upper, ymax= lower), width=.2,\n                position=position_dodge(.9)) +\n  ylab(\"variance explained\")+\n  xlab(\"PC dimension\")+\n  theme_classic()"
+    "text": "Imputación de datos faltantes usando SVD\nCuando la matriz de datos es parcialmente observada (hay datos faltantes), existen alternativas para proceder con la aplicación del PCA:\n\nRemover las filas (casos) de la matriz con datos faltantes.\nReemplazar los valores faltantes de una columna en específico por su respectiva media.\nReconstrucción de la matriz usando SVD\n\nEste último método, asume que \\(X\\) es una matrix con valores faltantes que ha sido centrada y escalada usando los valores observados. La idea es encontrar la matriz \\(X\\) de rango \\(r\\), denotada \\(X_r\\) que minimice la suma de cuadrados de la matriz original."
   },
   {
-    "objectID": "index.html#section-11",
-    "href": "index.html#section-11",
+    "objectID": "index.html#section-17",
+    "href": "index.html#section-17",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Algoritmo de imputación de datos mediante SVD\n\n\nEjemplo de simulación: Se simula el \\(10\\%\\) de datos faltantes en la matriz de datos completa del World Happiness Report la cuál tiene \\(149 \\times 5 = 745\\) entradas.\n\n\n\n#####################\nprop &lt;- 0.1\nnrep &lt;- 100\n#####################\n\ndf &lt;- HAPPY\ninfo &lt;- df[,c(1:2)] %&gt;%\n  rename(country = 1, region = 2)\ndf &lt;- df[,c(8:12)] %&gt;% \n  rename(social = 1, life = 2, choice = 3, generosity = 4, corruption = 5) %&gt;%\n  mutate(life = as.numeric(gsub(\",\",\"\",life)))\nn &lt;- nrow(df) * ncol(df)\n\nrss &lt;- function(X, A){\n  sum((X - A)^2, na.rm = TRUE)\n}\n\nmPCA &lt;- function(X, rank, maxit = 100, thresh = 1e-5){\n  A &lt;- outer(rep(1, nrow(X)), colMeans(X, na.rm = T))\n  score0 &lt;- rss(X, A)\n  delta &lt;- Inf\n  it &lt;- 0\n  while(it &lt; maxit & delta &gt; thresh){\n    #impute\n    Xtilde &lt;- X\n    Xtilde[is.na(X)] &lt;- A[is.na(X)]\n    #center\n    m &lt;- colMeans(Xtilde)\n    Xtilde &lt;- scale(Xtilde, center = m, scale = F)\n    #lrma\n    SVD &lt;- svd(Xtilde)\n    A &lt;- SVD$u[, 1:rank, drop = F] %*% diag(SVD$d[1:rank], rank, rank) %*% t(SVD$v[, 1:rank, drop = F])\n    #unscale\n    A &lt;- scale(A, center = -m, scale = F)\n    #loss\n    score &lt;- rss(X, A)\n    delta &lt;- abs((score - score0)/score0)\n    #cat(\"iter\", it , \"rss\", score, \"delta\", delta, \"\\n\")\n    score0 &lt;- score\n    it &lt;- it + 1\n  }\n  return(score)\n}\n\nmPCAnull &lt;- function(X){\n  A &lt;- outer(rep(1, nrow(X)), colMeans(X, na.rm = T))\n  score0 &lt;- rss(X, A)\n  return(score0)\n}\n\nresult &lt;- c()\nfor(rep in 1:nrep){\n  missing &lt;- sample(1:n, n*prop)\n  df_upd &lt;- as.matrix(df)\n  df_upd[missing] &lt;- NA\n  s &lt;- apply(df_upd, 2, sd, na.rm = T)\n  df_upd &lt;- scale(df_upd, scale = s, center = F) \n  \n  score0 &lt;- mPCAnull(df_upd) \n  result &lt;- rbind(result, data.frame(rss = score0, r2 = 0, rank = 0, rep = rep))\n  for(rank in 1:4){\n    score &lt;- mPCA(df_upd, rank)\n    result &lt;- rbind(result, data.frame(rss = score, r2 = 1 - score/score0, rank = rank, rep = rep))\n  }\n}\n\n\nresultsum &lt;- result %&gt;% group_by(rep) %&gt;% \n  mutate(vardiff = r2 - lag(r2)) %&gt;% \n  filter(rank &gt; 0) %&gt;% \n  group_by(rank) %&gt;% \n  summarise(mean = mean(vardiff), upper = quantile(vardiff, 0.975), lower = quantile(vardiff, 0.025))\n  \nggplot(resultsum, aes(x = rank, y = mean)) + \n  geom_bar(stat=\"identity\", fill = \"lightskyblue2\", color = \"black\",\n           position=position_dodge(), width = 0.7) +\n  geom_errorbar(aes(ymin = upper, ymax= lower), width=.2,\n                position=position_dodge(.9)) +\n  ylab(\"variance explained\")+\n  xlab(\"PC dimension\")+\n  theme_classic() |&gt;   theme(\n    axis.text.x = element_text(size = 14), # Increase x-axis tick labels\n    axis.text.y = element_text(size = 14), # Increase y-axis tick labels\n    axis.title.x = element_text(size = 16), # Increase x-axis title\n    axis.title.y = element_text(size = 16)  # Increase y-axis title\n  )"
+  },
+  {
+    "objectID": "index.html#section-18",
+    "href": "index.html#section-18",
     "title": "Principal Component Analysis",
     "section": "",
     "text": "Netflix competition\n\n\n\\(480189 \\hspace{0.1cm} \\textrm{usuarios} \\times 17770 \\hspace{0.1cm}\\textrm{películas}\\). En promedio, cada usuario calificó alrededor de 200 películas, por lo que se observó apenas el \\(1\\%\\) de la matriz.\n\\[M \\approx CG^T\\] \\[\\widehat{M} = CG^T\\] \\[\\widehat{m}_{ij} = \\sum_{k=1}^r c_{ik}g_{jk}\\] \\[\\textrm{RSS} = \\sum(m_{ij} - \\widehat{m}_{ij})^2\\] Esta imputación masiva sería inviable mediante el anterior algoritmo. Se requiere una versión mejorada con estrategias adicionales. Hay dos algoritmos: SoftImpute y HardImpute."
   },
   {
-    "objectID": "index.html#perspectivas",
-    "href": "index.html#perspectivas",
+    "objectID": "index.html#perspectivas-del-pca",
+    "href": "index.html#perspectivas-del-pca",
     "title": "Principal Component Analysis",
-    "section": "Perspectivas",
-    "text": "Perspectivas"
+    "section": "Perspectivas del PCA",
+    "text": "Perspectivas del PCA\n\nVersatilidad del PCA:\n\nHerramienta esencial para análisis exploratorio y aprendizaje no supervisado.\nAplicable a diversas áreas como:\n\nGenética.\nEcología.\nNegocios.\nProcesamiento de señales.\n\n\nInnovaciones Recientes:\n\nSparse PCA:\n\nReduce dimensionalidad seleccionando variables relevantes.\nÚtil en datasets con miles de variables.\n\nPCA Supervisado:\n\nOptimiza la separación entre grupos.\nEjemplo: Clasificación de tumores en estudios genéticos.\n\n\nAplicaciones No Tradicionales:\n\nImágenes:\n\nClasificación de patrones como dígitos manuscritos.\n\nFormas:\n\nAnálisis de variaciones en alas de mosquitos.\n\nFunciones:\n\nAnálisis de curvas de movimiento humano."
   },
   {
     "objectID": "index.html#conclusiones-finales",
     "href": "index.html#conclusiones-finales",
     "title": "Principal Component Analysis",
     "section": "Conclusiones finales",
-    "text": "Conclusiones finales\nSe ha mostrado cómo este método simple y versátil puede extraer la información esencial de conjuntos de datos multivariados complejo. ( otras que se puedan ocurrir)\n\n\n\nAnálisis de componentes principales PCA"
+    "text": "Conclusiones finales\n\nPCA como herramienta en la reducción de la dimensionalidad: Se ha mostrado cómo este método simple y versátil puede extraer la información esencial de conjuntos de datos multivariados complejos.\nAnálisis descriptivo de los datos: El PCA Permite descubrir patrones subyacentes, relaciones entre variables y detectar anomalías que de otro modo serían difíciles de identificar en grandes conjuntos de datos.\nInterpretación de las componentes:  Aunque el PCA reduce la dimensionalidad, la interpretación de las componentes principales puede ser compleja, especialmente en casos donde las variables originales tienen un significado claro. Es clave poder asociar las componentes obtenidas con las características originales de los datos."
+  },
+  {
+    "objectID": "index.html#conclusiones-finales-1",
+    "href": "index.html#conclusiones-finales-1",
+    "title": "Principal Component Analysis",
+    "section": "Conclusiones finales",
+    "text": "Conclusiones finales\n\nLimitaciones: Una de las limitaciones más importantes del PCA es su sensibilidad a la escala de las variables. Además, PCA es un método lineal, lo que significa que no captura relaciones no lineales entre las variables. Esto puede ser una restricción en conjuntos de datos más complejos.\nDiversidad de aplicaciones: La aplicabilidad del PCA es transversal a muchas disciplinas científicas. En todos esos campos, ayuda a reducir la complejidad de los datos (múltiples tipos de objetos) y a facilitar la interpretación y visualización de grandes cantidades de información.\nVariantes del PCA: Se han desarrollado variantes del PCA clásico con el fin de reducir las limitaciones del método. Algunas variantes son: Sparce PCA, PCA con valores faltantes, PCA supervisado, entre otros."
+  },
+  {
+    "objectID": "index.html#section-20",
+    "href": "index.html#section-20",
+    "title": "Principal Component Analysis",
+    "section": "",
+    "text": "Análisis de componentes principales PCA"
   }
 ]
